@@ -8,7 +8,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   // const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
-  const [timer, setTimer] = useState(8); // 타이머 상태 (8초부터 시작)
+  const [timer, setTimer] = useState(1); // 타이머 상태 (8초부터 시작) //테스트 1초
   const videoRef = useRef(null);
   const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
     // 캡처 및 타이머 재설정 로직
     const handleTimer = () => {
       capturePhoto();
-      setTimer(8); // 타이머를 다시 8초로 초기화
+      setTimer(1); // 타이머를 다시 8초로 초기화 (테스트용 1초)
     };
 
     if (timer === 0) {
@@ -97,7 +97,6 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
     // onPhotoTaken(imageSrc, emotionTranslate); // 부모 컴포넌트에 이미지 소스를 전달
     // setFlash(true); // 캡처 후 플래시 효과 실행
     // setTimeout(() => setFlash(false), 200); // 0.2초 후 플래시 효과 해제
-
     handlePhotoTaken(photo);
   }
 
