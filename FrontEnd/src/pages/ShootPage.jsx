@@ -8,7 +8,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   // const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
-  const [timer, setTimer] = useState(1); // 타이머 상태 (8초부터 시작) //테스트 1초
+  const [timer, setTimer] = useState(4); // 타이머 상태 (8초부터 시작) //테스트 1초
   const videoRef = useRef(null);
   const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
   const navigate = useNavigate();
@@ -38,6 +38,19 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
     startVideo();
   }, []);
 
+  // 감정 인식 수행
+  useEffect(() => {
+    const detectEmotionFromVideo = async () => {
+      if (!videoRef.current) return;
+
+      const detectedEmotion = await detectEmotion(videoRef.current); // 감정 인식 수행
+      setCurrentEmotion(detectedEmotion); // 감정 결과를 상태에 저장
+    };
+
+    const interval = setInterval(detectEmotionFromVideo, 500); // 0.5초마다 감정 인식 수행
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
+  }, [detectEmotion]); // 감정 인식 훅을 의존성으로 설정
 
   //로딩상태를 관리하는 함수_ 현재 오류로인해 사용X
   const handleLoadingPage = () => {
@@ -54,7 +67,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
     // 캡처 및 타이머 재설정 로직
     const handleTimer = () => {
       capturePhoto();
-      setTimer(1); // 타이머를 다시 8초로 초기화 (테스트용 1초)
+      setTimer(2); // 타이머를 다시 8초로 초기화 (테스트용 1초)
     };
 
     if (timer === 0) {
@@ -64,7 +77,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
 
     const countdown = setTimeout(() => {
       setTimer((prev) => prev - 1);
-    }, 1000);
+    }, 1000); //1초마다 1 감소
 
     return () => clearTimeout(countdown);
   }, [timer]);
@@ -92,7 +105,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
       videoRef.current, 0, 0, videoRef.current.videoWidth, videoRef.current.videoHeight
     );
 
-    const photo = canvas.toDataURL("image/jpeg");
+    const photo = canvas.toDataURL("image/jpeg");    //캔버스의 사진을 url형태로 photo변수에 저장
     // setImageSrc(imageSrc);
     // onPhotoTaken(imageSrc, emotionTranslate); // 부모 컴포넌트에 이미지 소스를 전달
     // setFlash(true); // 캡처 후 플래시 효과 실행
