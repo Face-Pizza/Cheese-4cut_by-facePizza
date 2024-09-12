@@ -18,7 +18,10 @@ const EmotionCaptureHandler = ({ translatedEmotion, targetEmotion, timer, setTim
     console.log(`translatedEmotion: ${translatedEmotion}, targetEmotion: ${targetEmotion}, timer: ${timer}`);
     if (translatedEmotion === targetEmotion || timer === 0) {
       capturePhoto();
-      setTimer(8); // 타이머를 8초로 초기화
+      setTimer(0);
+      setTimeout(() => {
+        setTimer(8); // 타이머를 8초로 초기화
+      }, 2000); 
     }
   }, [translatedEmotion, targetEmotion, timer, capturePhoto, setTimer]);
 
