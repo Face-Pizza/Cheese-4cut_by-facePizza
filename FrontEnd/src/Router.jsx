@@ -15,7 +15,7 @@ const AppRouter = ({setCutCount, quantity, setQuantity, setCapturedPhotos, captu
             <Route path='/shoot' element={ <ShootPage setCapturedPhotos={setCapturedPhotos} capturedPhotos={capturedPhotos}/>} />
             <Route path='/loading' element={ <LoadingPage/> } />
             <Route path='/select' element= { <SelectionPage capturedPhotos={capturedPhotos} /> } />
-            <Route path='/print' element= { <PrintPage/> } />
+            <Route path='/print' element= { <PrintPage setCapturedPhotos={setCapturedPhotos} /> } />
         </Routes>
     )
 };

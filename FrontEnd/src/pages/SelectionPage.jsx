@@ -39,8 +39,8 @@ const SelectionPage = ({ capturedPhotos }) => {
             return prevSelectedPhotos;
         });
     };
- 
-    const handleNextFrame = () => {    ////Issue 콘솔 NaN찍히며 프레임 안바뀜
+
+    const handleNextFrame = () => {   
         setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % framesSquence.length);
         console.log(framesSquence[currentFrameIndex])
     };
@@ -55,24 +55,28 @@ const SelectionPage = ({ capturedPhotos }) => {
                 <Sel.FourFrame>
                     <Sel.Frame src={framesSquence[currentFrameIndex]} />
                     {Array.from({ length: 4 }).map((_, index) => (
-                        <Sel.EachPhoto  
-                            key={index}
-                            onClick={() => {
-                                const photo = selectedPhotos[index];
-                                if (photo) {
-                                    toggleSelectPhoto(photo);
-                                }
-                            }}
-                            >
-                            {selectedPhotos[index] ? (
-                                <img
-                                    src={selectedPhotos[index].photo}
-                                    alt={`selected-${index}`} //"번째 사진"
-                                />
-                            ) : (
-                                <Sel.EmptyPhoto/>
-                            )}
-                        </Sel.EachPhoto>
+                        <div key={index}>
+                            <Sel.EachPhoto>
+                                {selectedPhotos[index] ? (
+                                    <img
+                                        src={selectedPhotos[index].photo}
+                                        alt={`selected-${index}`}
+                                    />
+                                ) : (
+                                    <Sel.EmptyPhoto />
+                                )}
+                            </Sel.EachPhoto>
+
+                            {/* 각 사진 위에 겹쳐질 토글 버튼 */}
+                            <Sel.PhotoToggleBtn
+                                onClick={() => {
+                                    const photo = selectedPhotos[index];
+                                    if (photo) {
+                                        toggleSelectPhoto(photo);
+                                    }
+                                }}
+                            />
+                        </div>
                     ))}
                 </Sel.FourFrame>
                 <div id="photo_gallery">  {/* 클릭을 통해 네게까지 선택 가능. 다시클릭시 선택 해제됨 */}
@@ -95,11 +99,11 @@ const SelectionPage = ({ capturedPhotos }) => {
                     ))}
                 </div>
             </S.CenterRowBox>
-           <button 
-           onClick={() => navigate('/print')} //null때문인지 항상 활성화되는 문제가 발생
-           disable={selectedPhotos.filter(photo => photo !== null).length !== 4}
-           >
-            프린트하기
+            <button
+                onClick={() => navigate('/print')} //null때문인지 항상 활성화되는 문제가 발생
+                disabled={selectedPhotos.filter(photo => photo !== null).length !== 4}
+            >
+                프린트하기
             </button>  {/* selectedPhoto.length == 4 일때만 활성화 */}
         </Sel.SelectionPage>
     );

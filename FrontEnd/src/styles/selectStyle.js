@@ -24,20 +24,30 @@ export const FourFrame = styled.div`
 
   transform: scale(0.65); /* 전체 크기를 절반으로 줄임 */
   transform-origin: top center;
+
+
+  div{
+    position: relative;
+  }
 `
+
+export const Frame = styled.img`
+  position: absolute;
+  z-index: 2;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+`
+
 export const EachPhoto = styled.div`
+  position: relative;
+  z-index: 1;
+
   background-color: white;
   width: 300px;
   height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
-
-  &:hover {
-    transform: scale(1.02);
-    transition: 0.2s;
-  }
 
   img {
     width: 101%;
@@ -46,10 +56,19 @@ export const EachPhoto = styled.div`
   }
 `;
 
-export const Frame = styled.img`
+export const PhotoToggleBtn = styled.button`
   position: absolute;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  top: 0;
+  left: 0;
+
+  width: 300px;
+  height: 400px;
+  background-color: transparent;
+  cursor: pointer;
+  /* border: 1px solid blue; */
 `
+
 
 export const FrameChoice = styled.button`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
