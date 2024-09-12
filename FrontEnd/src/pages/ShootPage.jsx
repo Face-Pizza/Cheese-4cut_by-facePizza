@@ -2,20 +2,31 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEmotionDetection } from '../hooks/useEmotionDetection';
 import * as S from '../styles/commonStyle';
+import EmotionCaptureHandler from '../hooks/EmotionCaptureHandle';
 import LoadingPage from './LoadingPage';
 
 const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   // const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
-  const [timer, setTimer] = useState(4); // 타이머 상태 (8초부터 시작) //테스트 1초
+  const [timer, setTimer] = useState(8); // 타이머 상태 (8초부터 시작) //테스트 1초
   const videoRef = useRef(null);
   const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
   const navigate = useNavigate();
   const { detectEmotion } = useEmotionDetection();
 
-  // 감정 순서를 정의하는 배열
+  // 감정 순서를 정의하는 배열 & 현재 목표 감정
   const emotionsSequence = ['행복', '슬픔', '분노', '놀람'];
+  const currentTargetEmotion = emotionsSequence[Math.floor(capturedPhotos.length / 2)];
+
+  const TranslatedCurrentEmotion = {
+    happy: '행복',
+    sad: '슬픔',
+    angry: '분노',
+    surprised: '놀람',
+  };
+  const translatedEmotion = currentEmotion ? TranslatedCurrentEmotion[currentEmotion.expression] || '인식되지 않음' : '인식되지 않음';
+  
 
   // 비디오 로드 및 감정 인식
   useEffect(() => {
@@ -47,40 +58,16 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
       setCurrentEmotion(detectedEmotion); // 감정 결과를 상태에 저장
     };
 
-    const interval = setInterval(detectEmotionFromVideo, 500); // 0.5초마다 감정 인식 수행
+    const interval = setInterval(detectEmotionFromVideo, 250); // 0.25초마다 감정 인식 수행
 
     return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
   }, [detectEmotion]); // 감정 인식 훅을 의존성으로 설정
+
 
   //로딩상태를 관리하는 함수_ 현재 오류로인해 사용X
   const handleLoadingPage = () => {
     setIsLoading(false);
   };
-
-  //사진 촬영 후 상태에 저장하는 함수
-  const handlePhotoTaken = (photo) => {
-    setCapturedPhotos((prevPhotos) => [...prevPhotos, { photo }]);
-  };
-
-  //  8초마다 사진을 촬영하는 타이머 로직
-  useEffect(() => {
-    // 캡처 및 타이머 재설정 로직
-    const handleTimer = () => {
-      capturePhoto();
-      setTimer(2); // 타이머를 다시 8초로 초기화 (테스트용 1초)
-    };
-
-    if (timer === 0) {
-      handleTimer();
-      return;
-    }
-
-    const countdown = setTimeout(() => {
-      setTimer((prev) => prev - 1);
-    }, 1000); //1초마다 1 감소
-
-    return () => clearTimeout(countdown);
-  }, [timer]);
 
 
 
@@ -105,9 +92,13 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
       videoRef.current, 0, 0, videoRef.current.videoWidth, videoRef.current.videoHeight
     );
 
+
+    //사진 촬영 후 상태에 저장하는 함수
+    const handlePhotoTaken = (photo) => {
+      setCapturedPhotos((prevPhotos) => [...prevPhotos, { photo }]);
+    };
+
     const photo = canvas.toDataURL("image/jpeg");    //캔버스의 사진을 url형태로 photo변수에 저장
-    // setImageSrc(imageSrc);
-    // onPhotoTaken(imageSrc, emotionTranslate); // 부모 컴포넌트에 이미지 소스를 전달
     // setFlash(true); // 캡처 후 플래시 효과 실행
     // setTimeout(() => setFlash(false), 200); // 0.2초 후 플래시 효과 해제
     handlePhotoTaken(photo);
@@ -115,17 +106,13 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
 
   useEffect(() => {
     if (capturedPhotos.length === 8) {
-      navigate('/select'); // "/select" 경로로 이동 (라우터 설정이 필요)
+      navigate('/select'); // "/select" 경로로 이동
     }
   }, [capturedPhotos.length, navigate]);
 
 
   return (
     <div>
-      {/* {isLoading ? (
-        <LoadingPage />
-      ) : (
-        <> */}
       <h1>촬영 페이지</h1>
       <S.CenterRowBox>
         <h3>{capturedPhotos.length} /8</h3>
@@ -144,9 +131,16 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
         {/* <FlashOverlay flash={flash} /> */}
         <h3>{timer}s</h3>
       </S.CenterRowBox>
-      <h3>현재 감정 : {currentEmotion ? currentEmotion.expression : '인식되지 않음'} </h3>
-      {/* </>
-      )} */}
+      <h3>현재 감정 : {translatedEmotion} </h3>
+      <h3>목표감정 : {currentTargetEmotion} </h3>
+      <EmotionCaptureHandler
+        translatedEmotion={translatedEmotion || '인식되지 않음'}
+        targetEmotion={currentTargetEmotion}
+        timer={timer}
+        setTimer={setTimer}
+        capturePhoto={capturePhoto}
+        
+      />
     </div>
   );
 };
