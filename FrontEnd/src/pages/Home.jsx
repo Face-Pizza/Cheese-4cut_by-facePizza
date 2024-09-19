@@ -53,7 +53,7 @@ const Home = ({ setCutCount, setQuantity, quantity }) => {
       </S.HomeContainer>
 
       <S.Footer>
-        <h2>매수 선택</h2>
+        <h3>매수 선택</h3>
         <S.CenterRowBox >
           <button onClick={Minus} style={{padding: '0 5px'}}> - </button>
           <h3> {quantity} </h3>
