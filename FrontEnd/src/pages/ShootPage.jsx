@@ -2,14 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEmotionDetection } from '../hooks/useEmotionDetection';
 import * as S from '../styles/commonStyle';
+import * as Sho from '../styles/shootStyle';
 import EmotionCaptureHandler from '../hooks/EmotionCaptureHandle';
 import LoadingPage from './LoadingPage';
 
 const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
-  // const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
+  const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
-  const [timer, setTimer] = useState(8); // 타이머 상태 (8초부터 시작) //테스트 1초
+  const [timer, setTimer] = useState(4); // 타이머 상태 (8초부터 시작) //테스트 1초
   const videoRef = useRef(null);
   const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
   const navigate = useNavigate();
@@ -103,8 +104,8 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
     };
 
     const photo = canvas.toDataURL("image/jpeg");    //캔버스의 사진을 url형태로 photo변수에 저장
-    // setFlash(true); // 캡처 후 플래시 효과 실행
-    // setTimeout(() => setFlash(false), 200); // 0.2초 후 플래시 효과 해제
+    setFlash(true); // 캡처 후 플래시 효과 실행
+    setTimeout(() => setFlash(false), 200); // 0.2초 후 플래시 효과 해제
     handlePhotoTaken(photo);
 
     setLastCapturedPhoto(photo); // 방금 찍힌 사진을 상태에 저장하여 보여줌 //그냥 캡쳐포토 뒤에서 보여주는것도 방법일듯
@@ -153,7 +154,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
         />)}
 
         <canvas ref={canvasRef} style={{ display: "none" }} />
-        {/* <FlashOverlay flash={flash} /> */}
+        <Sho.FlashOverlay flash={flash} />
         <h3>{timer}s</h3>
       </S.CenterRowBox>
       <h3>현재 감정 : {translatedEmotion} </h3>

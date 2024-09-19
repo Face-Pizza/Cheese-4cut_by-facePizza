@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Frame1 from '../assets/Frame/Frame_W.png';
-import Frame2 from '../assets/Frame/Frame_CW.png';
-import Frame3 from '../assets/Frame/Frame_CY.png';
-import Frame4 from '../assets/Frame/Frame_4.png';
+import FrameSelector from '../commponents/FrameSelector';
+import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
+import SubmitPhotos from '../hooks/SubmitPhoto';
 
 
 const SelectionPage = ({ capturedPhotos }) => {
-    const framesSquence = [Frame1, Frame2, Frame3, Frame4];
+    // const framesSquence = [Frame1, Frame2, Frame3, Frame4];
+    // const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
     const navigate = useNavigate();
-    const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
     const [selectedPhotos, setSelectedPhotos] = useState([null, null, null, null]);
+    const [frameSrc, setFrameSrc] = useState(null);
+    const [selectedFrame, setSelectedFrame] = useState('Frame1');
+
     console.log(capturedPhotos.length);
 
     const toggleSelectPhoto = (photo) => {
@@ -40,45 +42,62 @@ const SelectionPage = ({ capturedPhotos }) => {
         });
     };
 
-    const handleNextFrame = () => {   
-        setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % framesSquence.length);
-        console.log(framesSquence[currentFrameIndex])
-    };
+    // const handleNextFrame = () => {
+    //     setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % framesSquence.length);
+    //     console.log(framesSquence[currentFrameIndex])
+    // };
 
 
     return (
         <Sel.SelectionPage>
-            <h2>사진을 선택해 주세요.</h2>
-            <S.CenterRowBox >
-                {/* 다음 버튼을 누르면 Sel.Frame의 scr가 Frame1, 2, 3, 4 다시 1 순으로 변화*/}
-                <button onClick={handleNextFrame}>다음</button>
-                <Sel.FourFrame>
-                    <Sel.Frame src={framesSquence[currentFrameIndex]} />
-                    {Array.from({ length: 4 }).map((_, index) => (
-                        <div key={index}>
-                            <Sel.EachPhoto>
-                                {selectedPhotos[index] ? (
-                                    <img
-                                        src={selectedPhotos[index].photo}
-                                        alt={`selected-${index}`}
-                                    />
-                                ) : (
-                                    <Sel.EmptyPhoto />
-                                )}
-                            </Sel.EachPhoto>
+            <Sel.Left_box>
+                <Sel.Header>
+                    <S.Logo src={Logo_Cheese} alt='LOGO' />
+                    <label>
+                        <span>사진 저장 QR코드</span>
+                        <input type='checkbox' />
+                    </label>
+                </Sel.Header>
 
-                            {/* 각 사진 위에 겹쳐질 토글 버튼 */}
-                            <Sel.PhotoToggleBtn
-                                onClick={() => {
-                                    const photo = selectedPhotos[index];
-                                    if (photo) {
-                                        toggleSelectPhoto(photo);
-                                    }
-                                }}
-                            />
-                        </div>
-                    ))}
-                </Sel.FourFrame>
+                <Sel.Photo_Preview>
+                    <Sel.FourFrame>
+                        <Sel.Frame src={frameSrc} />
+                        {Array.from({ length: 4 }).map((_, index) => (
+                            <div key={index}>
+                                <Sel.EachPhoto>
+                                    {selectedPhotos[index] ? (
+                                        <img
+                                            src={selectedPhotos[index].photo}
+                                            alt={`selected-${index}`}
+                                        />
+                                    ) : (
+                                        <Sel.EmptyPhoto />
+                                    )}
+                                </Sel.EachPhoto>
+
+                                {/* 각 사진 위에 겹쳐질 토글 버튼 */}
+                                <Sel.PhotoToggleBtn
+                                    onClick={() => {
+                                        const photo = selectedPhotos[index];
+                                        if (photo) {
+                                            toggleSelectPhoto(photo);
+                                        }
+                                    }}
+                                />
+                            </div>
+                        ))}
+                    </Sel.FourFrame>
+                </Sel.Photo_Preview>
+
+                <FrameSelector
+                    setFrameSrc={setFrameSrc}
+                    selectedFrame={selectedFrame}
+                    setSelectedFrame={setSelectedFrame}
+                />
+                {/* <button onClick={handleNextFrame}>다음</button> */}
+            </Sel.Left_box>
+            
+            <Sel.Right_box>
                 <div id="photo_gallery">  {/* 클릭을 통해 네게까지 선택 가능. 다시클릭시 선택 해제됨 */}
                     {capturedPhotos.map((photo, index) => (
                         <Sel.PhotoWrapper
@@ -98,13 +117,22 @@ const SelectionPage = ({ capturedPhotos }) => {
                         </Sel.PhotoWrapper>
                     ))}
                 </div>
+
+                <button
+                    onClick={() => navigate('/print')} //null때문인지 항상 활성화되는 문제가 발생
+                    disabled={selectedPhotos.filter(photo => photo !== null).length !== 4}
+                >
+                    프린트하기
+                </button>  {/* selectedPhoto.length == 4 일때만 활성화 */}
+                {/* <SubmitPhotos selectedPhotos={selectedPhotos} /> */}
+            </Sel.Right_box>
+
+            <S.CenterRowBox >
+
+
+
             </S.CenterRowBox>
-            <button
-                onClick={() => navigate('/print')} //null때문인지 항상 활성화되는 문제가 발생
-                disabled={selectedPhotos.filter(photo => photo !== null).length !== 4}
-            >
-                프린트하기
-            </button>  {/* selectedPhoto.length == 4 일때만 활성화 */}
+
         </Sel.SelectionPage>
     );
 }
