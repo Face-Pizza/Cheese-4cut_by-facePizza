@@ -8,10 +8,26 @@ export const SelectionPage = styled.div`
 
 #photo_gallery{
     display: grid;
-    grid-template-columns: repeat(4, 150px);
-    grid-template-rows: repeat(2, 200px);
+    grid-template-columns: repeat(4, 216px);
+    grid-template-rows: repeat(2, 288px);
+    row-gap: 34px;
+    column-gap: 34px;
+
+    margin: 42px 0;
 }
 `
+
+export const PhotoWrapper = styled.div`
+  position: relative;
+  height: auto;
+
+  ${({ isSelected }) => isSelected && css`
+    box-shadow: 0 0 0 2px  #FFC700;
+    border-radius: 4px;
+    border: 3px solid #FFC700;
+
+  `}
+`;
 
 export const Header = styled.div`
   display: flex;
@@ -43,9 +59,14 @@ export const Left_box = styled.div`
 export const Right_box = styled.div`
  display: flex;
  flex-direction: column;
+ justify-content: center;
  width: 58%;
  background-color: #F4F4F4;
- height: 100%;
+ height: 99vh;
+
+ h3{
+  margin: 0;
+ }
 `
 
 export const FourFrame = styled.div`
@@ -115,16 +136,6 @@ export const PhotoToggleBtn = styled.button`
 `
 
 
-export const PhotoWrapper = styled.div`
-  position: relative;
-  height: auto;
-  border: 3px solid transparent;
-
-  ${({ isSelected }) => isSelected && css`
-    box-shadow: 0 0 0 2px #2E2E2E;
-    border-radius: 4px;
-  `}
-`;
 
 export const EmptyPhoto = styled.div`
     width: 100%;

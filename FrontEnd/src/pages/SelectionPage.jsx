@@ -42,11 +42,6 @@ const SelectionPage = ({ capturedPhotos }) => {
         });
     };
 
-    // const handleNextFrame = () => {
-    //     setCurrentFrameIndex((prevIndex) => (prevIndex + 1) % framesSquence.length);
-    //     console.log(framesSquence[currentFrameIndex])
-    // };
-
 
     return (
         <Sel.SelectionPage>
@@ -94,36 +89,41 @@ const SelectionPage = ({ capturedPhotos }) => {
                     selectedFrame={selectedFrame}
                     setSelectedFrame={setSelectedFrame}
                 />
-                {/* <button onClick={handleNextFrame}>다음</button> */}
             </Sel.Left_box>
-            
-            <Sel.Right_box>
-                <div id="photo_gallery">  {/* 클릭을 통해 네게까지 선택 가능. 다시클릭시 선택 해제됨 */}
-                    {capturedPhotos.map((photo, index) => (
-                        <Sel.PhotoWrapper
-                            key={index}
-                            isSelected={selectedPhotos.includes(photo)}
-                            onClick={() => toggleSelectPhoto(photo)}
-                        >
-                            <img
-                                src={photo.photo}
-                                alt={`snap-${index}`}
-                                style={{
-                                    width: '101%',
-                                    height: '101%',
-                                    objectFit: 'cover',
-                                }}
-                            />
-                        </Sel.PhotoWrapper>
-                    ))}
-                </div>
 
-                <button
-                    onClick={() => navigate('/print')} //null때문인지 항상 활성화되는 문제가 발생
-                    disabled={selectedPhotos.filter(photo => photo !== null).length !== 4}
-                >
-                    프린트하기
-                </button>  {/* selectedPhoto.length == 4 일때만 활성화 */}
+            <Sel.Right_box>
+                <S.CenterColBox style={{ alignItems: 'center' }}>
+                    <h3>사진을 골라주세요</h3>
+                    <div id="photo_gallery">  {/* 클릭을 통해 네게까지 선택 가능. 다시클릭시 선택 해제됨 */}
+
+                        {capturedPhotos.map((photo, index) => (
+                            <Sel.PhotoWrapper
+                                key={index}
+                                isSelected={selectedPhotos.includes(photo)}
+                                onClick={() => toggleSelectPhoto(photo)}
+                            >
+                                <img
+                                    src={photo.photo}
+                                    alt={`snap-${index}`}
+                                    style={{
+                                        width: '101%',
+                                        height: '101%',
+                                        objectFit: 'cover',
+                                    }}
+                                />
+                            </Sel.PhotoWrapper>
+                        ))}
+                    </div>
+                    <S.RightRowBox>
+                        <button
+                            onClick={() => navigate('/print')}
+                            disabled={selectedPhotos.filter(photo => photo !== null).length !== 4}
+                            style={{margin: '0 70px', padding: '0'}}
+                        >
+                           <h3>프린트하기 ></h3>
+                        </button>
+                    </S.RightRowBox>
+                </S.CenterColBox>
                 {/* <SubmitPhotos selectedPhotos={selectedPhotos} /> */}
             </Sel.Right_box>
 

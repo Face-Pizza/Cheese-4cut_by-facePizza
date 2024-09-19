@@ -12,6 +12,12 @@ export const LeftRowBox = styled.div`
     justify-content: left;
 `
 
+export const RightRowBox = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+`
+
 export const CenterColBox = styled.div`
     display: flex;
     flex-direction: column;
