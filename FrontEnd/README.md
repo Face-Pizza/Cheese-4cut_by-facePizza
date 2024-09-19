@@ -17,3 +17,9 @@ pip install djangorestframework
 pip install Pillow
 pip install qrcode
 ```
+3. 실행
+```commandline
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
