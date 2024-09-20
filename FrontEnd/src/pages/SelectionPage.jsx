@@ -121,7 +121,7 @@ const SelectionPage = ({ capturedPhotos }) => {
                             disabled={selectedPhotos.filter(photo => photo !== null).length !== 4}
                             style={{margin: '0 70px', padding: '0'}}
                         >
-                           <h3>프린트하기 ></h3>
+                           <h3>프린트하기 &gt;</h3>
                         </button>
                     </S.RightRowBox>
                 </S.CenterColBox>
