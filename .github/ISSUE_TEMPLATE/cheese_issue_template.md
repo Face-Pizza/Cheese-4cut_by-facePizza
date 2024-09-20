@@ -1,7 +1,7 @@
 ---
 name: Cheese_Issue_Template
 about: 프론트엔드 이슈템플릿입니다
-title: ''
+title: "[Tag] Issue Message "
 labels: ''
 assignees: ''
 
