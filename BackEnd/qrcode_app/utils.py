@@ -1,11 +1,12 @@
-import qrcode, base64
-from PIL import Image
+import qrcode
 from io import BytesIO
+from django.core.files.base import ContentFile
+from PIL import Image
 
 QRCODE_SERVER_URL = '배포된 qr 사이트 주소' + '/receive?code='
 
 # qrcode 생성
-def genQR(id: int) -> Image.Image:
+def genQR(id: int) -> ContentFile:
     qr = qrcode.QRCode(
         version=1,      # qr의 저장 size
         error_correction=qrcode.ERROR_CORRECT_M,    # 오류 복원 레벨
@@ -14,13 +15,12 @@ def genQR(id: int) -> Image.Image:
     )
     qr.add_data(QRCODE_SERVER_URL + str(id))
     qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white")     # qrcode 이미지 생성
-    
-    # QR 코드를 base64로 인코딩
-    #buffered = BytesIO()
-    #img.save(buffered, format="PNG")
-    #img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    img = qr.make_image(fill_color="black", back_color="white")
 
-    # return img.get_image()  # qrcode 이미지 반환
-    return img
-    #return img_str
+    # 이미지를 메모리 상의 BytesIO 객체에 저장
+    img_io = BytesIO()
+    img.save(img_io, format='PNG')  # PNG 형식으로 저장
+    img_io.seek(0)  # 파일 포인터를 처음으로 이동
+
+    # ContentFile로 반환 (Django ImageField에 저장할 수 있는 형식)
+    return ContentFile(img_io.read(), name=f'qr_{id}.png')
