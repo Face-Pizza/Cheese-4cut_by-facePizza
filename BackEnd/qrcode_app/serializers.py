@@ -9,7 +9,7 @@ class PhotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = '__all__'
 
-    def create(self, validated_data):
+    """def create(self, validated_data):
         image_data = validated_data.get('photo')
         # Photo 인스턴스 생성
         photo_instance = super().create(validated_data)
@@ -35,4 +35,4 @@ class PhotoSerializer(serializers.ModelSerializer):
             photo_instance.photo = image_data
             photo_instance.save()
             
-        return photo_instance
+        return photo_instance"""
