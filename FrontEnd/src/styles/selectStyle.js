@@ -140,7 +140,7 @@ export const PhotoToggleBtn = styled.button`
 export const EmptyPhoto = styled.div`
     width: 100%;
     height: 100%;
-    background-color: ddd;
+    background-color: #939393;
 `
 
 //FrameSelectop

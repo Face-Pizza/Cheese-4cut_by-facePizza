@@ -21,8 +21,8 @@ const Home = ({ setCutCount, setQuantity, quantity }) => {
   }
 
 
-  const handleStart = () => {
-    navigate('/shoot');
+  const handleNext = () => {
+    navigate('/pay');
   };
 
   return (
@@ -53,14 +53,7 @@ const Home = ({ setCutCount, setQuantity, quantity }) => {
       </S.HomeContainer>
 
       <S.Footer>
-        <h3>매수 선택</h3>
-        <S.CenterRowBox >
-          <button onClick={Minus} style={{padding: '0 5px'}}> - </button>
-          <h3> {quantity} </h3>
-          <button onClick={Plus}> + </button>
-        </S.CenterRowBox>
-        {/* <input type="number" min="1" max="9" onChange={(e) => setQuantity(e.target.value)} /> */}
-        <button onClick={handleStart} id='startBTN'>start</button>
+        <button onClick={handleNext} id='nextBTN'>다음 &gt;</button>
       </S.Footer>
     </S.Home>
   );

@@ -43,6 +43,7 @@ export const Logo = styled.img`
 export const Home = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 30px 130px;
 `
 
@@ -50,6 +51,9 @@ export const HomeContainer = styled.div`
   display: flex;
   gap : 38px;
   height: 560px;
+  width: 100%;
+  padding: 0 148px;
+  
 
   button{
     display: flex;
@@ -66,7 +70,7 @@ export const HomeContainer = styled.div`
   }
   button:focus,
   button:focus-visible {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4.253px 31.898px 0px rgba(0, 0, 0, 0.25);
   background-color: #FFFAEA;
 }
 h3{
@@ -80,23 +84,14 @@ p{
 
 export const Footer = styled.div`
   display: flex;
+  width: 100%;
   justify-content: flex-end;
   align-items: center;
   gap: 90px;
   padding: 0 60px;
 
-  h3{
-    display: flex;
-    background-color: #E5E5E5;
-    border-radius: 90px;
-    width: 90px;
-    height: 90px;
-    justify-content: center;
-    align-items: center;
-  }
-
   button{
-    background-color: white;
+    background: none;
     text-align: center;
     font-size: 43.2px;
     padding: 0;
@@ -104,8 +99,8 @@ export const Footer = styled.div`
     width: 90px;
     height: 90px;
    }
-  #startBTN{
+  #nextBTN{
     font-size: 40px; }
-  #startBTN:hover{
+  button:hover{
     color: #FFC500; }   
 `

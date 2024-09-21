@@ -5,7 +5,7 @@ import Frame3 from '../assets/Frame/Frame_CY.png';
 import Frame4 from '../assets/Frame/Frame_4.png';
 import * as Sel from '../styles/selectStyle';
 
-const FrameSelector = ({ setFrameSrc, selectedFrame, setSelectedFrame }) => {
+const FrameSelector = ({ frameSrc, setFrameSrc, selectedFrame, setSelectedFrame }) => {
     const frames = [
         { name: 'Frame1', src: Frame1 },
         { name: 'Frame2', src: Frame2 },

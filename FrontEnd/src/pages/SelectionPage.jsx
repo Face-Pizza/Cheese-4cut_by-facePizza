@@ -4,18 +4,18 @@ import FrameSelector from '../commponents/FrameSelector';
 import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
+import Frame1 from '../assets/Frame/Frame_W.png';
 import SubmitPhotos from '../hooks/SubmitPhoto';
 
 
 const SelectionPage = ({ capturedPhotos }) => {
-    // const framesSquence = [Frame1, Frame2, Frame3, Frame4];
-    // const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
     const navigate = useNavigate();
     const [selectedPhotos, setSelectedPhotos] = useState([null, null, null, null]);
-    const [frameSrc, setFrameSrc] = useState(null);
+    const [frameSrc, setFrameSrc] = useState(Frame1);
     const [selectedFrame, setSelectedFrame] = useState('Frame1');
 
     console.log(capturedPhotos.length);
+    console.log(frameSrc);
 
     const toggleSelectPhoto = (photo) => {
         setSelectedPhotos((prevSelectedPhotos) => {
@@ -86,6 +86,7 @@ const SelectionPage = ({ capturedPhotos }) => {
 
                 <FrameSelector
                     setFrameSrc={setFrameSrc}
+                    frameSrc={frameSrc}
                     selectedFrame={selectedFrame}
                     setSelectedFrame={setSelectedFrame}
                 />
@@ -120,7 +121,7 @@ const SelectionPage = ({ capturedPhotos }) => {
                             disabled={selectedPhotos.filter(photo => photo !== null).length !== 4}
                             style={{margin: '0 70px', padding: '0'}}
                         >
-                           <h3>프린트하기 ></h3>
+                           <h3>프린트하기 &gt;</h3>
                         </button>
                     </S.RightRowBox>
                 </S.CenterColBox>
