@@ -16,6 +16,7 @@ pip install django
 pip install djangorestframework
 pip install Pillow
 pip install qrcode
+pip install django-cors-headers
 ```
 3. 실행
 ```commandline
