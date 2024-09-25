@@ -4,20 +4,19 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import ShootPage from './pages/ShootPage';
 import SelectionPage from './pages/SelectionPage';
-// import FrameSelectionPage from './pages/FrameSelectionPage';  //삭제 예정
 import PrintPage from './pages/PrintPage';
 import LoadingPage from './pages/LoadingPage';
 import PaymentPage from './pages/PaymentPage';
 
-const AppRouter = ({setCutCount, quantity, setQuantity, setCapturedPhotos, capturedPhotos}) => {
+const AppRouter = ({setCutCount, quantity, setQuantity, setCapturedPhotos, capturedPhotos, savedImage, setSavedImage}) => {
     return (
         <Routes>
             <Route path='/' element={<Home setCutCount={setCutCount} setQuantity={setQuantity} quantity={quantity} />} />
             <Route path='/pay' element={<PaymentPage setCutCount={setCutCount} setQuantity={setQuantity} quantity={quantity} />} />
             <Route path='/shoot' element={ <ShootPage setCapturedPhotos={setCapturedPhotos} capturedPhotos={capturedPhotos}/>} />
             <Route path='/loading' element={ <LoadingPage/> } />
-            <Route path='/select' element= { <SelectionPage capturedPhotos={capturedPhotos} /> } />
-            <Route path='/print' element= { <PrintPage setCapturedPhotos={setCapturedPhotos} /> } />
+            <Route path='/select' element= { <SelectionPage capturedPhotos={capturedPhotos} setSavedImage={setSavedImage} savedImage={savedImage} /> } />
+            <Route path='/print' element= { <PrintPage setCapturedPhotos={setCapturedPhotos} savedImage={savedImage}/> } />
         </Routes>
     )
 };

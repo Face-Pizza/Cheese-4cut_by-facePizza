@@ -7,7 +7,7 @@ function App() {
   const [cutCount, setCutCount] = useState(2);    // 컷수: 2컷 or 4컷
   const [quantity, setQuantity] = useState(1);    // 매수: 1~9매
   const [capturedPhotos, setCapturedPhotos] = useState([]); // 촬영된 사진
-  const [finalPhoto, setFinalPhoto] = useState(null); // 최종 선택된 사진
+  const [savedImage, setSavedImage] = useState(null);
 
   return (
     <Router>
@@ -17,6 +17,8 @@ function App() {
         quantity={quantity}
         capturedPhotos={capturedPhotos}
         setCapturedPhotos={setCapturedPhotos}
+        savedImage={savedImage}
+        setSavedImage={setSavedImage}
       />
     </Router>
   )

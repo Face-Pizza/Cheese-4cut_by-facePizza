@@ -72,7 +72,6 @@ export const Right_box = styled.div`
 export const FourFrame = styled.div`
   position: relative;
   display: grid;
-  /* height: 642px; */
 
   justify-content: center;
   align-content: center;
@@ -89,6 +88,13 @@ export const FourFrame = styled.div`
 
   div{
     position: relative;
+  }
+
+  #canvas{
+  width: 0;
+  height: 0; 
+  position: absolute;
+  border: 10px solid blue;
   }
 `
 

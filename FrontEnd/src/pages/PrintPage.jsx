@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const PringPage = ({ setCapturedPhotos }) => {
+const PrintPage = ({setCapturedPhotos ,savedImage}) => {
   const navigate = useNavigate();
+  // const { savedImage } = location.state || {};
   const [timer, setTimer] = useState(6); // 타이머 상태 (6초 후 이동)
-
+  
   useEffect(() => {
     // 1초마다 타이머를 감소시키는 인터벌 설정
     const countdown = setInterval(() => {
@@ -29,8 +30,13 @@ const PringPage = ({ setCapturedPhotos }) => {
     <>
       <div>프린트 중입니다...</div>
       <div>{timer}초 후에 메인 페이지로 이동합니다.</div>
+      {savedImage ? (
+        <img src={savedImage} alt="Saved preview" />
+      ) : (
+        <p>저장된 사진이 없습니다.</p>
+      )}
     </>
   );
 };
 
-export default PringPage;
+export default PrintPage;
