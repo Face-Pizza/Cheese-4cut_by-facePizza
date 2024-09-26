@@ -49,7 +49,9 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
             videoRef.current.srcObject = stream;
           }
         })
-        .catch((err) => console.log("비디오 스트림 접근 오류: ", err));
+        .catch((err) => {
+          console.log("비디오 스트림 접근 오류: ", err); // 오류 로그 추가
+        });
     };
 
     startVideo();
@@ -79,6 +81,9 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
 
   //사진 촬영 함수
   const capturePhoto = () => {
+    console.log("canvasRef:", canvasRef.current);
+    console.log("videoRef:", videoRef.current);
+
     if (!canvasRef.current || !videoRef.current) {
       console.log("캔버스 또는 비디오 요소가 초기화되지 않았어yo");
       return;

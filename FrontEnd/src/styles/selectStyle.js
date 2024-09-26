@@ -15,6 +15,11 @@ export const SelectionPage = styled.div`
 
     margin: 42px 0;
 }
+
+  #Preview{ 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
+  } 
 `
 
 export const PhotoWrapper = styled.div`
@@ -72,7 +77,6 @@ export const Right_box = styled.div`
 export const FourFrame = styled.div`
   position: relative;
   display: grid;
-  /* height: 642px; */
 
   justify-content: center;
   align-content: center;
@@ -89,6 +93,13 @@ export const FourFrame = styled.div`
 
   div{
     position: relative;
+  }
+
+  #canvas{
+  width: 0;
+  height: 0; 
+  position: absolute;
+  border: 10px solid blue;
   }
 `
 
