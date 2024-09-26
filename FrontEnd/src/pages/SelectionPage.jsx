@@ -5,7 +5,8 @@ import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
 import Frame1 from '../assets/Frame/Frame_W.png';
-import { post4Cut } from '../api/apiService';
+import { post4Cut } from '../api/post4Cut';
+import { getLatestData } from '../api/getQRcode';
 
 const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const navigate = useNavigate();
@@ -40,33 +41,44 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
         });
     };
 
-    // 새로운 함수: 사진, 프레임, 버튼을 캔버스에 그리기
+    // 사진을 POST, id, qr코드 받아옴
     const handlePrintClick = async () => {
         if (savedImage) {
             try {
                 const response = await post4Cut(savedImage);
-                console.log('Saved ID:', response.id);
+                // console.log('Saved ID:', response.data.id);
                 navigate('/print');
             } catch (error) {
                 console.error('에러가 발생', error);
-            } 
+            }
         } else {
-            console.error('No image to upload');
+            console.error('업로드할 이미지가 없음');
+        }
+
+        try {
+            const latestData = await getLatestData();  // Await the data
+            if (latestData) {
+                console.log(latestData.id);  // Now you can access latestData.id
+            }
+        } catch (error) {
+            console.error('Failed to fetch the latest data:', error);
         }
     };
 
-    //테스트용, 미리 그리기
+    //캔버스에 사진 그리기
     useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        const frameElement = frameRef.current;
+        // const frameElement = frameRef.current;
 
         // 캔버스 크기 설정
-        canvas.width = frameElement.clientWidth;
-        canvas.height = frameElement.clientHeight;
+        canvas.width = 450;
+        canvas.height = 642;
 
         // 그리기 전에 캔버스 초기화
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#36323B';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // 이미지 로드 작업을 비동기적으로 처리
         const imagePromises = selectedPhotos.map((photo, index) => {
@@ -91,6 +103,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
 
 
                         // 이미지를 그리드에 맞춰 그리기
+
                         ctx.drawImage(
                             img,
                             sx, 0, sWidth, img.height,
@@ -125,7 +138,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
             setSavedImage(imgDataUrl);
         });
 
-    }, [readyToPrint, frameSrc]); // selectedPhotos와 frameSrc가 변경될 때마다 실행
+    }, [readyToPrint, frameSrc, selectedPhotos]); // selectedPhotos와 frameSrc가 변경될 때마다 실행
 
     return (
         <Sel.SelectionPage>
@@ -168,10 +181,10 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                             );
                         })}
                         {/* 캔버스: 프린트하기 버튼 클릭시 이미지 캡처 */}
-                        <canvas ref={canvasRef} id="cnavas" style={{ position: 'absolute', left: '-9999' }} />
+                        <canvas ref={canvasRef} id="cnavas" style={{ position: 'absolute' }} />
                     </Sel.FourFrame>
                 </Sel.Photo_Preview>
-                <img src={savedImage} alt="Saved preview" />
+                {/* <img src={savedImage} alt="Saved preview" id='Preview' /> */}
                 <FrameSelector
                     setFrameSrc={setFrameSrc}
                     frameSrc={frameSrc}

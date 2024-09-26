@@ -15,6 +15,11 @@ export const SelectionPage = styled.div`
 
     margin: 42px 0;
 }
+
+  #Preview{ 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
+  } 
 `
 
 export const PhotoWrapper = styled.div`
