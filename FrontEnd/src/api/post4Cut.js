@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { getLatestPhoto } from './getQRcode';
 
 const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
