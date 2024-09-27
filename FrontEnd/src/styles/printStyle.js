@@ -16,6 +16,7 @@ export const PrintPage = styled.div`
     h3{
         font-size: 30px;
         margin: 0 0 30px 0;
+    }
 `
 
 export const Cartoon = styled.img`
