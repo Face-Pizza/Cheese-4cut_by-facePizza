@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import * as S from '../styles/commonStyle';
 import Logo_Cheese from '../assets/Logo_Cheese.png';
 import Example_Img from '../assets/Example_Img.png';
+import Left_illust from '../assets/Home_illust_1.png';
+import right_illust from '../assets/Home_illust_2.png';
 
 const Home = ({ setCutCount, setQuantity, quantity }) => {
   const navigate = useNavigate();
@@ -32,22 +34,26 @@ const Home = ({ setCutCount, setQuantity, quantity }) => {
 
       <S.HomeContainer>
         <button onClick={() => { setCutCount(1); }}>
-          <S.LeftColBox>
+          <S.LeftColBox style={{ height: '100%' }}>
             <div id='descrip'>
-              <h3>표정 챌린지 네컷</h3>
-              <p>목표 표정이 인식되면 사진이 찍혀요!</p>
+              <h3 class='HomeH3'>표정 챌린지 </h3>
+              <p class='HomeP'>목표 표정이 인식되면 자동으로 사진이 찍혀요</p>
             </div>
-            <img src={Example_Img} />
+            <S.CenterColBox>
+              <img class='illust' src={Left_illust} />
+            </S.CenterColBox>
           </S.LeftColBox>
         </button>
 
         <button onClick={() => { setCutCount(2); }}>
-          <S.LeftColBox>
+          <S.LeftColBox style={{ height: '100%', }}>
             <div id='descrip'>
-              <h3>내맘대로 표정 네컷</h3>
-              <p>지금 내 표정을 실시간 인식해서 텍스트로 표기해요</p>
+              <h3 class='HomeH3'>지내표 (지금 내 표정은?)</h3>
+              <p class='HomeP'>지금 내 표정을 텍스트로 인식해서 보여줘요</p>
             </div>
-            <img src={Example_Img} />
+            <S.CenterColBox>
+              <img class='illust' src={right_illust} />
+            </S.CenterColBox>
           </S.LeftColBox>
         </button>
       </S.HomeContainer>

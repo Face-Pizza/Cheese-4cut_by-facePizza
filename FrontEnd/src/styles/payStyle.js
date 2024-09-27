@@ -43,6 +43,44 @@ export const ContextBox = styled.div`
   }
 `
 
+export const Amount_Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items : flex-end;
+  width: 100%;
+  margin-top: 50px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #6D6D6D;
+
+  h3{
+    font-size: 44px;
+    margin: 0;
+  }
+
+  #discount{
+    color: #FFB700; 
+  }
+`
+
+export const Total_Amount_Box = styled.div`
+  display: flex;
+  gap: 70px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 20px;
+ 
+
+  h1{
+    font-size: 60px;
+    margin: 19px 0;
+  }
+  h3{
+    font-size: 42px;
+    margin: 19px 0;
+  }
+`
+
 export const Footer = styled.div`
   display: flex;
   width: 100%;
@@ -66,8 +104,6 @@ export const Footer = styled.div`
     margin: 0px;
     height: 90px;
    }
-  #startBTN{
-    font-size: 40px; }
   #startBTN:hover{
     color: #FFC500; }   
 `

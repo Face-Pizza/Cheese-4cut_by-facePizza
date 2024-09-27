@@ -22,6 +22,7 @@ export const CenterColBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
 `
 
 export const LeftColBox = styled.div`
@@ -30,6 +31,18 @@ export const LeftColBox = styled.div`
     justify-content: center;
     align-items: flex-start;
     gap: 30px;
+
+    .HomeH3{
+      text-align: left;
+    }
+
+    .HomeP{
+      color: #6D6D6D;
+    }
+
+    .illust{
+      width: 100%;
+    }
 `
 
 export const Logo = styled.img`

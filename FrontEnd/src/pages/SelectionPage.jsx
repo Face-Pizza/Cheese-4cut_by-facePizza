@@ -1,3 +1,4 @@
+//src/pages/SelectPage.jsx
 import React, { useState, useRef, useEffect } from 'react';  // useRef 캔버스 참조 추가
 import { useNavigate } from 'react-router-dom';
 import FrameSelector from '../commponents/FrameSelector';
@@ -5,8 +6,8 @@ import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
 import Frame1 from '../assets/Frame/Frame_W.png';
-import { post4Cut } from '../api/post4Cut';
-import { getLatestData } from '../api/getQRcode';
+import { HandlePrint } from '../commponents/select/HandlePrint';
+import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
 
 const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const navigate = useNavigate();
@@ -15,7 +16,12 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const [frameSrc, setFrameSrc] = useState(Frame1);
     const [selectedFrame, setSelectedFrame] = useState('Frame1');
     const canvasRef = useRef(null);  // 캔버스 참조 추가
-    const frameRef = useRef(null); // FourFrame에 대한 참조 추가
+    const frameRef = useRef(null); 
+    const [qrCode, setQRCode] = useState('');
+
+    const handleQRCodeChange = (newQRCode) => {
+        setQRCode(newQRCode);
+    };
 
     const toggleSelectPhoto = (photo) => {
         setSelectedPhotos((prevSelectedPhotos) => {
@@ -41,29 +47,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
         });
     };
 
-    // 사진을 POST, id, qr코드 받아옴
-    const handlePrintClick = async () => {
-        if (savedImage) {
-            try {
-                const response = await post4Cut(savedImage);
-                // console.log('Saved ID:', response.data.id);
-                navigate('/print');
-            } catch (error) {
-                console.error('에러가 발생', error);
-            }
-        } else {
-            console.error('업로드할 이미지가 없음');
-        }
 
-        try {
-            const latestData = await getLatestData();  // Await the data
-            if (latestData) {
-                console.log(latestData.id);  // Now you can access latestData.id
-            }
-        } catch (error) {
-            console.error('Failed to fetch the latest data:', error);
-        }
-    };
 
     //캔버스에 사진 그리기
     useEffect(() => {
@@ -138,24 +122,29 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
             setSavedImage(imgDataUrl);
         });
 
-    }, [readyToPrint, frameSrc, selectedPhotos]); // selectedPhotos와 frameSrc가 변경될 때마다 실행
+    }, [frameSrc, selectedPhotos]); // selectedPhotos와 frameSrc가 변경될 때마다 실행
+
+    const handleButtonClick = async () => {
+        // HandlePrint 함수 호출 시 navigate 전달
+        await HandlePrint(savedImage, navigate);
+    };
 
     return (
         <Sel.SelectionPage>
             <Sel.Left_box>
                 <Sel.Header>
                     <S.Logo src={Logo_Cheese} alt='LOGO' />
-                    <label>
-                        <span>사진 저장 QR코드</span>
-                        <input type='checkbox' />
-                    </label>
+                    <QRCodeDisplay onQRCodeChange={handleQRCodeChange} />
                 </Sel.Header>
+
 
                 <Sel.Photo_Preview>
                     <Sel.FourFrame ref={frameRef}>
                         {/* 선택된 사진과 프레임 미리보기 */}
                         <Sel.Frame src={frameSrc} />
-
+                        {qrCode && (
+                            <Sel.QRimg src={qrCode} alt="QR 코드" />
+                        )}
 
                         {Array.from({ length: 4 }).map((_, index) => {
                             const x = 24 + (12 + 195) * (index % 2); // 사진의 x 위치
@@ -184,7 +173,6 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                         <canvas ref={canvasRef} id="cnavas" style={{ position: 'absolute' }} />
                     </Sel.FourFrame>
                 </Sel.Photo_Preview>
-                {/* <img src={savedImage} alt="Saved preview" id='Preview' /> */}
                 <FrameSelector
                     setFrameSrc={setFrameSrc}
                     frameSrc={frameSrc}
@@ -217,7 +205,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                     </div>
                     <S.RightRowBox>
                         <button
-                            onClick={handlePrintClick}  // 클릭 이벤트를 캔버스에 그리도록 변경
+                            onClick={handleButtonClick}
                             disabled={!readyToPrint}
                             style={{ margin: '0 70px', padding: '0' }}
                         >
