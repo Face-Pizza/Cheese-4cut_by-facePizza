@@ -177,22 +177,10 @@ export const FrameChoice = styled.div`
     }
 `;
 
-// export const FrameChoice = styled.button`
-//   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-//   border-radius: 20px;
-//   padding: 2px 10px;
-//   margin: 0 5px;
-//   /* border: ${(props) => (props.isSelected ? '2px solid blue' : 'none')}; */
-//   background-color: ${(props) => (props.isSelected ? '#610B38' : 'white')};
-//   color: ${(props) => (props.isSelected ? '#FFFFFF' : 'black')};
-  
-//   &:hover{
-//     transform: scale(1.03);
-//     transition: 0.2s;
-//   }
-
-// &:active{
-//   background-color: #610B38;
-//   color: #FFFFFF;
-// }
-// `
+export const QRimg = styled.img`
+  width: 40px;
+  position: absolute;
+  z-index: 3;
+  left: 24px;
+  top: 563px;
+`

@@ -1,3 +1,4 @@
+//src/pages/SelectPage.jsx
 import React, { useState, useRef, useEffect } from 'react';  // useRef 캔버스 참조 추가
 import { useNavigate } from 'react-router-dom';
 import FrameSelector from '../commponents/FrameSelector';
@@ -6,7 +7,7 @@ import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
 import Frame1 from '../assets/Frame/Frame_W.png';
 import { HandlePrint } from '../commponents/select/HandlePrint';
-import QRCodeDisplay from '../commponents/select/QRCodeDisplay';
+import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
 
 const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const navigate = useNavigate();
@@ -15,7 +16,12 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const [frameSrc, setFrameSrc] = useState(Frame1);
     const [selectedFrame, setSelectedFrame] = useState('Frame1');
     const canvasRef = useRef(null);  // 캔버스 참조 추가
-    const frameRef = useRef(null); // FourFrame에 대한 참조 추가
+    const frameRef = useRef(null); 
+    const [qrCode, setQRCode] = useState('');
+
+    const handleQRCodeChange = (newQRCode) => {
+        setQRCode(newQRCode);
+    };
 
     const toggleSelectPhoto = (photo) => {
         setSelectedPhotos((prevSelectedPhotos) => {
@@ -41,7 +47,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
         });
     };
 
-    
+
 
     //캔버스에 사진 그리기
     useEffect(() => {
@@ -128,19 +134,17 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
             <Sel.Left_box>
                 <Sel.Header>
                     <S.Logo src={Logo_Cheese} alt='LOGO' />
-                    {/* <label>
-                        <span>사진 저장 QR코드</span>
-                        <input type='checkbox' />
-                    </label> */}
-                    <QRCodeDisplay />
+                    <QRCodeDisplay onQRCodeChange={handleQRCodeChange} />
                 </Sel.Header>
-                
+
 
                 <Sel.Photo_Preview>
                     <Sel.FourFrame ref={frameRef}>
                         {/* 선택된 사진과 프레임 미리보기 */}
                         <Sel.Frame src={frameSrc} />
-
+                        {qrCode && (
+                            <Sel.QRimg src={qrCode} alt="QR 코드" />
+                        )}
 
                         {Array.from({ length: 4 }).map((_, index) => {
                             const x = 24 + (12 + 195) * (index % 2); // 사진의 x 위치
@@ -201,7 +205,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                     </div>
                     <S.RightRowBox>
                         <button
-                            onClick={handleButtonClick}  
+                            onClick={handleButtonClick}
                             disabled={!readyToPrint}
                             style={{ margin: '0 70px', padding: '0' }}
                         >

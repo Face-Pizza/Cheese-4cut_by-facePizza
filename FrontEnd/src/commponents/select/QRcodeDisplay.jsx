@@ -1,8 +1,10 @@
 // src/components/QRCodeDisplay.jsx
 import { useState } from 'react';
 import { getLatestData } from '../../api/getQRcode';
+import * as Sel from '../../styles/selectStyle';
 
-const QRCodeDisplay = () => {
+
+const QRCodeDisplay = ( {onQRCodeChange} ) => {
     const [isChecked, setIsChecked] = useState(false);
     const [qrCode, setQRCode] = useState('');
 
@@ -13,11 +15,13 @@ const QRCodeDisplay = () => {
             try {
                 const latestData = await getLatestData();  // API 호출로 데이터 가져오기
                 setQRCode(latestData.qr_code);  // QR 코드 설정
+                onQRCodeChange(latestData.qr_code);
             } catch (error) {
                 console.error('Failed to fetch the latest data:', error);
             }
         } else {
             setQRCode('');  // 체크 해제 시 QR 코드 숨기기
+            onQRCodeChange('');
         }
     };
 
@@ -31,17 +35,6 @@ const QRCodeDisplay = () => {
                     onChange={handleCheckboxChange} 
                 />
             </label>
-
-            {/* 체크박스가 체크되면 QR 코드 렌더링 */}
-            {isChecked && qrCode && (
-                <div>
-                    <img 
-                        src={qrCode} 
-                        alt="QR 코드" 
-                        style={{ marginTop: '10px', width: '150px', height: '150px' }} 
-                    />
-                </div>
-            )}
         </div>
     );
 };
