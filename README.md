@@ -58,9 +58,11 @@
 ## 프론트 세팅
 설치 필요한 라이브러리 <br/>
 <br/>
+```commandline
 npm i <br/>
 npm install react-router-dom <br/>
 npm install styled-components<br/>
+```
 
 ## 백엔드 세팅
 1. 가상환경 생성
