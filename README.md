@@ -59,9 +59,9 @@
 설치 필요한 라이브러리 <br/>
 <br/>
 ```commandline
-npm i <br/>
-npm install react-router-dom <br/>
-npm install styled-components<br/>
+npm i
+npm install react-router-dom
+npm install styled-components
 ```
 
 ## 백엔드 세팅
