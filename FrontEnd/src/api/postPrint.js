@@ -24,7 +24,7 @@ export const PostPrint = async (savedImage) => {
         };
   
         const imageBlob = base64ToBlob(savedImage); // Blob으로 변환
-        formData.append('photo', imageBlob, 'photo.png'); // Blob 추가
+        formData.append('file', imageBlob, 'photo.png'); // 'file'로 수정
       } else if (savedImage instanceof Blob) {
         console.log('savedImage는 Blob입니다.');
         formData.append('photo', savedImage, 'photo.png'); // Blob인 경우
