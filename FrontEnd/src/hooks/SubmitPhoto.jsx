@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PostPrint } from './path-to-your-post-print-file';
 
 // 서버로 선택된 사진을 전송하는 컴포넌트
 const SubmitPhotos = ({ selectedPhotos }) => {
@@ -13,7 +14,7 @@ const SubmitPhotos = ({ selectedPhotos }) => {
 
         // 선택된 사진을 Base64로 백엔드에 전송
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/photos/', {
+            const response = await fetch('http://15.165.247.2/api/photos/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
