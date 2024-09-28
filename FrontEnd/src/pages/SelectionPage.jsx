@@ -8,7 +8,7 @@ import * as Sel from '../styles/selectStyle';
 import Frame1 from '../assets/Frame/A_1.png';
 import { HandlePrint } from '../commponents/select/HandlePrint';
 import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
-import { savePhoto } from '../commponents/select/saveMethod';
+// import { savePhoto } from '../commponents/select/saveMethod';
 
 const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const navigate = useNavigate();
@@ -130,6 +130,17 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
         await HandlePrint(savedImage, navigate);
     };
 
+    const handleDownloadClick = () => {
+        if (savedImage) {
+            const link = document.createElement('a');
+            link.href = savedImage;  // savedImage는 base64 이미지 데이터
+            link.download = 'Cheese_naecut.jpg';  // 다운로드할 파일 이름
+            link.click();  // 다운로드 트리거
+        } else {
+            console.error('저장된 이미지가 없습니다!');
+        }
+    };
+    
     return (
         <Sel.SelectionPage>
             <Sel.Left_box>
@@ -207,7 +218,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                     <S.RightRowBox>
 
                         <button
-                            onClick={() => savePhoto(frameRef, setPhotoURL)}
+                            onClick={handleDownloadClick}
                             style={{ margin: '0 70px', padding: '0' }}>
                             사진 다운로드하기
                         </button>
@@ -215,7 +226,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
 
                         <button
                             onClick={handleButtonClick}
-                            // disabled={!readyToPrint}
+                            
                             disabled={true}
                             style={{ margin: '0 70px', padding: '0' }}
                         >
