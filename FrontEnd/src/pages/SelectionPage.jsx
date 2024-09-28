@@ -5,10 +5,9 @@ import FrameSelector from '../commponents/FrameSelector';
 import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
-import Frame1 from '../assets/Frame/A_1.png';
+import Frame1 from '../assets/Frame/A_1.svg';
 import { HandlePrint } from '../commponents/select/HandlePrint';
 import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
-// import { savePhoto } from '../commponents/select/saveMethod';
 
 const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const navigate = useNavigate();
@@ -16,7 +15,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const [readyToPrint, setReadyToPrint] = useState(false);
     const [frameSrc, setFrameSrc] = useState(Frame1);
     const [selectedFrame, setSelectedFrame] = useState('Frame1');
-    const canvasRef = useRef(null);  // 캔버스 참조 추가
+    const canvasRef = useRef(null); 
     const frameRef = useRef(null);
     const [qrCode, setQRCode] = useState('');
 
@@ -125,9 +124,10 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
 
     }, [frameSrc, selectedPhotos]); // selectedPhotos와 frameSrc가 변경될 때마다 실행
 
-    const handleButtonClick = async () => {
+    const handlePrintClick = async () => {
         // HandlePrint 함수 호출 시 navigate 전달
         await HandlePrint(savedImage, navigate);
+    
     };
 
     const handleDownloadClick = () => {
@@ -225,9 +225,9 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
 
 
                         <button
-                            onClick={handleButtonClick}
+                            onClick={handlePrintClick}
                             
-                            disabled={true}
+                            disabled={!readyToPrint}
                             style={{ margin: '0 70px', padding: '0' }}
                         >
                             <h3>프린트하기 &gt;</h3>
