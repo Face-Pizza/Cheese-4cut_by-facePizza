@@ -5,9 +5,10 @@ import FrameSelector from '../commponents/FrameSelector';
 import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
-import Frame1 from '../assets/Frame/Frame_W.png';
+import Frame1 from '../assets/Frame/A_1.png';
 import { HandlePrint } from '../commponents/select/HandlePrint';
 import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
+import { savePhoto } from '../commponents/select/saveMethod';
 
 const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     const [frameSrc, setFrameSrc] = useState(Frame1);
     const [selectedFrame, setSelectedFrame] = useState('Frame1');
     const canvasRef = useRef(null);  // 캔버스 참조 추가
-    const frameRef = useRef(null); 
+    const frameRef = useRef(null);
     const [qrCode, setQRCode] = useState('');
 
     const handleQRCodeChange = (newQRCode) => {
@@ -75,10 +76,10 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                         // console.log('가로(너비):', img.width);
                         // console.log('세로(높이):', img.height);
 
-                        const photoWidth = 195;  // EachPhoto의 너비
+                        const photoWidth = 210;  // EachPhoto의 너비
                         const photoHeight = 260; // EachPhoto의 높이
-                        const x = 24 + (12 + photoWidth) * (index % 2);// x 위치
-                        const y = 24 + Math.floor(index / 2) * (12 + photoHeight); // y 위치
+                        const x = 10 + (7.2 + photoWidth) * (index % 2);// x 위치
+                        const y = 30 + Math.floor(index / 2) * (5 + photoHeight); // y 위치
 
                         const AdjustmentRatio = photoHeight / img.height; //비율을 곱해서 들어감(347)
 
@@ -141,7 +142,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                 <Sel.Photo_Preview>
                     <Sel.FourFrame ref={frameRef}>
                         {/* 선택된 사진과 프레임 미리보기 */}
-                        <Sel.Frame src={frameSrc} />
+                        {/* <Sel.Frame src={frameSrc} /> */}
                         {qrCode && (
                             <Sel.QRimg src={qrCode} alt="QR 코드" />
                         )}
@@ -204,9 +205,18 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                         ))}
                     </div>
                     <S.RightRowBox>
+
+                        <button
+                            onClick={() => savePhoto(frameRef, setPhotoURL)}
+                            style={{ margin: '0 70px', padding: '0' }}>
+                            사진 다운로드하기
+                        </button>
+
+
                         <button
                             onClick={handleButtonClick}
-                            disabled={!readyToPrint}
+                            // disabled={!readyToPrint}
+                            disabled={true}
                             style={{ margin: '0 70px', padding: '0' }}
                         >
                             <h3>프린트하기 &gt;</h3>

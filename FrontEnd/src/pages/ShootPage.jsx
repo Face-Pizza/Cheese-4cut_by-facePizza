@@ -5,12 +5,17 @@ import * as S from '../styles/commonStyle';
 import * as Sho from '../styles/shootStyle';
 import EmotionCaptureHandler from '../hooks/EmotionCaptureHandle';
 import LoadingPage from './LoadingPage';
+import hap from '../assets/charcter/s_happy.png'
+import sad from '../assets/charcter/s_sad.png'
+import ang from '../assets/charcter/s_angry.png'
+import sup from '../assets/charcter/s_surprised.png'
+
 
 const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
-  const [timer, setTimer] = useState(4); // 타이머 상태 (8초부터 시작) //테스트 1초
+  const [timer, setTimer] = useState(10); // 타이머 상태 (10초부터 시작) //테스트 1초
   const videoRef = useRef(null);
   const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
   const navigate = useNavigate();
@@ -22,6 +27,11 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
   const emotionsSequence = ['행복', '슬픔', '분노', '놀람'];
   const currentTargetEmotion = emotionsSequence[Math.floor(capturedPhotos.length / 2)];
 
+  const TipSequence = [ '입을 크게 벌리고 웃어보아요!',  '눈썹과 입꼬리를 내려요', '미간을 좁히고 입을 네모로!', '눈썹을 올리고 입을 벌려요']
+  const currenTipSequence = TipSequence[Math.floor(capturedPhotos.length / 2)];
+
+  const chracterseq = [hap, sad, ang, sup]
+  const currentCharacterseq = chracterseq[Math.floor(capturedPhotos.length / 2)];
   const TranslatedCurrentEmotion = {
     happy: '행복',
     sad: '슬픔',
@@ -131,17 +141,19 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
 
 
   return (
-    <div>
-      <h1>촬영 페이지</h1>
-      <S.CenterRowBox>
-        <h3>{capturedPhotos.length} /8</h3>
-
+    <Sho.ShootPage>
+      <h1>{currentTargetEmotion} 표정을 지어주세요!</h1>
+      <S.CenterRowBox style={{ gap: '50px' }}>
+        <Sho.LeftDatabox >
+          <h3 id='sec'>{timer}s</h3>
+          <h3 id='sequence'>{capturedPhotos.length} /8</h3>
+        </Sho.LeftDatabox>
         {lastCapturedPhoto ? (<img
           src={lastCapturedPhoto}
           alt="lastCaptured"
           style={{
-            width: 450,
-            height: 600,
+            width: 775.5,
+            height: 945,
             objectFit: "cover",
             // transform: 'rotateY(180deg)'
           }}
@@ -151,8 +163,8 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
           autoPlay
           onLoadedData={handleLoadingPage}
           style={{
-            width: 450,
-            height: 600,
+            width: 775,
+            height: 945,
             objectFit: "cover",
             transform: 'rotateY(180deg)'
           }}
@@ -160,10 +172,13 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
 
         <canvas ref={canvasRef} style={{ display: "none" }} />
         <Sho.FlashOverlay flash={flash} />
-        <h3>{timer}s</h3>
+        <Sho.RightDatabox >
+          <h3 id='yourEx'>현재 표정 : {translatedEmotion} </h3>
+          <Sho.CharactImg src={currentCharacterseq} />
+          <h3 id='tip'>{currentTargetEmotion} Tip : {currenTipSequence}</h3>
+        </Sho.RightDatabox>
       </S.CenterRowBox>
-      <h3>현재 감정 : {translatedEmotion} </h3>
-      <h3>목표감정 : {currentTargetEmotion} </h3>
+      
       <EmotionCaptureHandler
         translatedEmotion={translatedEmotion || '인식되지 않음'}
         targetEmotion={currentTargetEmotion}
@@ -171,7 +186,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
         setTimer={setTimer}
         capturePhoto={capturePhoto}
       />
-    </div>
+    </Sho.ShootPage>
   );
 };
 
