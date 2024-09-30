@@ -7,7 +7,7 @@ export const HandlePrint = async (savedImage, navigate) => {
     if (savedImage) {
         try {
             const response = await post4Cut(savedImage);
-            navigate('/print'); //test를 위해 navigate일시 중지
+            navigate('/print');
             PostPrint(savedImage);
         } catch (error) {
             console.error('에러가 발생', error);
