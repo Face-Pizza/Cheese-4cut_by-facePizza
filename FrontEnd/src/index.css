@@ -12,7 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+body{
+  margin: 0;
+}
 
 @font-face {
   font-family: "omyu pretty";
@@ -64,29 +66,3 @@ input {
   appearance: auto;
   accent-color: blue;
 }
-
-/* 
-input {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background-color: #FFF;
-  border: 2px solid #000;
-  border-radius: 3px;
-  position: relative;
-}
-
-input[type="checkbox"]:checked {
-  background-color: purple;
-  border-color: purple;
-}
-
-input[type="checkbox"]:checked::before {
-  content: "✓";
-  color: #FFF;
-  font-size: 16px;
-  position: absolute;
-  top: -3px;
-  bottom: 0px;
-  left: 3px;
-} */

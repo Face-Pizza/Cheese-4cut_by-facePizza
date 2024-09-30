@@ -11,7 +11,7 @@ import ang from '../assets/charcter/s_angry.png'
 import sup from '../assets/charcter/s_surprised.png'
 
 
-const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
+const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
@@ -146,7 +146,7 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
       <S.CenterRowBox style={{ gap: '50px' }}>
         <Sho.LeftDatabox >
           <h3 id='sec'>{timer}s</h3>
-          <h3 id='sequence'>{capturedPhotos.length} /8</h3>
+          <h3 id='sequence'>{capturedPhotos.length}/8</h3>
         </Sho.LeftDatabox>
         {lastCapturedPhoto ? (<img
           src={lastCapturedPhoto}
@@ -190,4 +190,4 @@ const ShootPage = ({ setCapturedPhotos, capturedPhotos }) => {
   );
 };
 
-export default ShootPage;
+export default ShootPage_1;

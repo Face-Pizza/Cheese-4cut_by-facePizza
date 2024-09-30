@@ -3,24 +3,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from '../styles/commonStyle';
 import Logo_Cheese from '../assets/Logo_Cheese.png';
-import Example_Img from '../assets/Example_Img.png';
 import Left_illust from '../assets/Home_illust_1.png';
 import right_illust from '../assets/Home_illust_2.png';
 
-const Home = ({ setCutCount, setQuantity, quantity }) => {
+const Home = ({ nextURL, setNextURL }) => {
   const navigate = useNavigate();
-
-  const Plus = () => {
-    if (quantity < 10) {
-      setQuantity(quantity + 1)
-    }
-  }
-
-  const Minus = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1)
-    }
-  }
 
 
   const handleNext = () => {
@@ -33,7 +20,7 @@ const Home = ({ setCutCount, setQuantity, quantity }) => {
       <h3>사진 유형을 선택해주세요</h3>
 
       <S.HomeContainer>
-        <button onClick={() => { setCutCount(1); }}>
+        <button onClick={() => { setNextURL('/shoot_1'); }}>
           <S.LeftColBox style={{ height: '100%' }}>
             <div id='descrip'>
               <h3 class='HomeH3'>표정 챌린지 </h3>
@@ -45,7 +32,7 @@ const Home = ({ setCutCount, setQuantity, quantity }) => {
           </S.LeftColBox>
         </button>
 
-        <button onClick={() => { setCutCount(2); }}>
+        <button onClick={() => { setNextURL('/shoot_2'); }}>
           <S.LeftColBox style={{ height: '100%', }}>
             <div id='descrip'>
               <h3 class='HomeH3'>지내표 (지금 내 표정은?)</h3>
@@ -59,7 +46,13 @@ const Home = ({ setCutCount, setQuantity, quantity }) => {
       </S.HomeContainer>
 
       <S.Footer>
-        <button onClick={handleNext} id='nextBTN'>다음 &gt;</button>
+        <button
+          onClick={handleNext}
+          disabled={!nextURL}
+          id='nextBTN'
+        >
+          다음 &gt;
+        </button>
       </S.Footer>
     </S.Home>
   );

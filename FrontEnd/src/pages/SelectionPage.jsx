@@ -130,16 +130,16 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     
     };
 
-    const handleDownloadClick = () => {
-        if (savedImage) {
-            const link = document.createElement('a');
-            link.href = savedImage;  // savedImage는 base64 이미지 데이터
-            link.download = 'Cheese_naecut.jpg';  // 다운로드할 파일 이름
-            link.click();  // 다운로드 트리거
-        } else {
-            console.error('저장된 이미지가 없습니다!');
-        }
-    };
+    // const handleDownloadClick = () => {
+    //     if (savedImage) {
+    //         const link = document.createElement('a');
+    //         link.href = savedImage;  // savedImage는 base64 이미지 데이터
+    //         link.download = 'Cheese_naecut.jpg';  // 다운로드할 파일 이름
+    //         link.click();  // 다운로드 트리거
+    //     } else {
+    //         console.error('저장된 이미지가 없습니다!');
+    //     }
+    // };
     
     return (
         <Sel.SelectionPage>
@@ -216,17 +216,8 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                         ))}
                     </div>
                     <S.RightRowBox>
-
                         <button
-                            onClick={handleDownloadClick}
-                            style={{ margin: '0 70px', padding: '0' }}>
-                            사진 다운로드하기
-                        </button>
-
-
-                        <button
-                            onClick={handlePrintClick}
-                            
+                            onClick={handlePrintClick}                       
                             disabled={!readyToPrint}
                             style={{ margin: '0 70px', padding: '0' }}
                         >

@@ -67,6 +67,13 @@ export const HomeContainer = styled.div`
   width: 100%;
   padding: 0 148px;
   
+  
+  #descrip{
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    margin: 10px 0 0px 0;
+  }
 
   button{
     display: flex;
@@ -75,17 +82,12 @@ export const HomeContainer = styled.div`
     padding: 30px 50px;
   }
 
-  #descrip{
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start;
-    margin: 10px 0 0px 0;
-  }
   button:focus,
   button:focus-visible {
   box-shadow: 0px 4.253px 31.898px 0px rgba(0, 0, 0, 0.25);
   background-color: #FFFAEA;
 }
+
 h3{
     margin: 0;
 }
@@ -101,7 +103,7 @@ export const Footer = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 90px;
-  padding: 0 60px;
+  padding: 30px 60px;
 
   button{
     background: none;
@@ -110,10 +112,20 @@ export const Footer = styled.div`
     padding: 0;
     margin: 0px;
     width: 90px;
-    height: 90px;
+    height: 50px;
    }
   #nextBTN{
     font-size: 40px; }
   button:hover{
-    color: #FFC500; }   
+    color: #FFC500; } 
+    
+    
+button:disabled {
+  color: #A0A0A0; /* 비활성화 상태일 때 글씨 색 */
+  cursor: not-allowed; /* 마우스 커서 변경 */
+}
+/* 비활성화 상태일 때 호버 효과 제거 */
+button:disabled:hover {
+  background-color: #E0E0E0;
+}
 `
