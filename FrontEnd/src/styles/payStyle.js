@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const Payment = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 130px;
+`
+
 export const ContextBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,42 +49,43 @@ export const ContextBox = styled.div`
     font-size: 30px;
   }
 `
+//할일들어갈떄 사용
+// export const Amount_Box = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items : flex-end;
+//   width: 100%;
+//   margin-top: 50px;
+//   padding-bottom: 25px;
+//   border-bottom: 1px solid #6D6D6D;
 
-export const Amount_Box = styled.div`
+//   h3{
+//     font-size: 44px;
+//     margin: 0;
+//   }
+
+//   #discount{
+//     color: #FFB700; 
+//   }
+// `
+
+export const Total_Amount_Box = styled.div` 
   display: flex;
   flex-direction: column;
-  align-items : flex-end;
-  width: 100%;
-  margin-top: 50px;
-  padding-bottom: 25px;
-  border-bottom: 1px solid #6D6D6D;
-
-  h3{
-    font-size: 44px;
-    margin: 0;
-  }
-
-  #discount{
-    color: #FFB700; 
-  }
-`
-
-export const Total_Amount_Box = styled.div`
-  display: flex;
-  gap: 70px;
-  justify-content: flex-end;
+  gap: 20px;
+  justify-content: center;
   align-items: flex-end;
   width: 100%;
-  margin-bottom: 20px;
- 
+  margin: 60px 0 10px 0;
+  border-bottom: 1px solid #6D6D6D;
 
   h1{
     font-size: 60px;
-    margin: 19px 0;
+    margin: 0 0 15px 0;
   }
   h3{
     font-size: 42px;
-    margin: 19px 0;
+    margin: 0;
   }
 `
 
