@@ -5,6 +5,7 @@ import * as S from '../styles/commonStyle';
 import * as Sho from '../styles/shootStyle';
 import CurrentFaceEx from '../hooks/CurrentFaceEx';
 import shoot2_illust from '../assets/shoot2_illust.png'
+import Modal from '../commponents/shoot/Modal';
 import LoadingPage from './LoadingPage';
 
 
@@ -13,7 +14,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
     const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
     const [currentEmotion, setCurrentEmotion] = useState(null);
-    const [timer, setTimer] = useState(2); // 타이머 상태 (10초부터 시작) //테스트 1초
+    const [timer, setTimer] = useState(999); // 타이머 상태 (10초부터 시작) //테스트 1초
     const videoRef = useRef(null);
     const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
     const navigate = useNavigate();
@@ -65,7 +66,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
             setCurrentEmotion(detectedEmotion); // 감정 결과를 상태에 저장
         };
 
-        const interval = setInterval(detectEmotionFromVideo, 250); // 0.25초마다 감정 인식 수행
+        const interval = setInterval(detectEmotionFromVideo, 200); // 0.2초마다 감정 인식 수행
 
         return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
     }, [detectEmotion, isDetecting]); // 감정 인식 훅을 의존성으로 설정
@@ -138,6 +139,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
 
     return (
         <Sho.ShootPage2>
+            <Modal/>
             <Sho.CurrentH1>{translatedEmotion}</Sho.CurrentH1>
             <S.CenterRowBox style={{ gap: '50px', margin: '0' }}>
                 <Sho.LeftDatabox >

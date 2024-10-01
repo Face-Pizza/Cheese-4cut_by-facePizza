@@ -9,6 +9,8 @@ import hap from '../assets/charcter/s_happy.png'
 import sad from '../assets/charcter/s_sad.png'
 import ang from '../assets/charcter/s_angry.png'
 import sup from '../assets/charcter/s_surprised.png'
+import Modal from '../commponents/shoot/Modal';
+
 
 
 const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
@@ -142,6 +144,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
 
   return (
     <Sho.ShootPage>
+      <Modal/>
       <h1>{currentTargetEmotion} 표정을 지어주세요!</h1>
       <S.CenterRowBox style={{ gap: '50px' }}>
         <Sho.LeftDatabox >
