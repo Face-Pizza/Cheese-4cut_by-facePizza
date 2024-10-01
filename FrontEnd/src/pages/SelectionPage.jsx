@@ -6,16 +6,16 @@ import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
 import Frame1 from '../assets/Frame/A_1.svg';
-import { HandlePrint } from '../commponents/select/HandlePrint';
+import { HandlePrint } from '../hooks/HandlePrint';
 import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
 
-const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
+const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPrint, quantity }) => {
     const navigate = useNavigate();
     const [selectedPhotos, setSelectedPhotos] = useState([null, null, null, null]);
     const [readyToPrint, setReadyToPrint] = useState(false);
     const [frameSrc, setFrameSrc] = useState(Frame1);
     const [selectedFrame, setSelectedFrame] = useState('Frame1');
-    const canvasRef = useRef(null); 
+    const canvasRef = useRef(null);
     const frameRef = useRef(null);
     const [qrCode, setQRCode] = useState('');
 
@@ -82,7 +82,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
 
                         const AdjustmentRatio = photoHeight / img.height; //비율을 곱해서 들어감(347)
 
-                        const sx = ((640 - photoWidth / AdjustmentRatio) / 2);
+                        const sx = ((640 - photoWidth / AdjustmentRatio) / 2); //640 - 1280
                         const sWidth = photoWidth / AdjustmentRatio;
 
 
@@ -126,21 +126,25 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
 
     const handlePrintClick = async () => {
         // HandlePrint 함수 호출 시 navigate 전달
-        await HandlePrint(savedImage, navigate);
-    
+        if (typeof setImgForPrint !== 'function') {
+            console.error('setImgForPrint는 함수가 아닙니다:', setImgForPrint);
+            return;  // setImgForPrint가 함수가 아닐 경우 함수를 종료합니다.
+        }
+        await HandlePrint(savedImage, navigate, setImgForPrint, quantity);
+
     };
 
-    const handleDownloadClick = () => {
-        if (savedImage) {
-            const link = document.createElement('a');
-            link.href = savedImage;  // savedImage는 base64 이미지 데이터
-            link.download = 'Cheese_naecut.jpg';  // 다운로드할 파일 이름
-            link.click();  // 다운로드 트리거
-        } else {
-            console.error('저장된 이미지가 없습니다!');
-        }
-    };
-    
+    // const handleDownloadClick = () => {
+    //     if (savedImage) {
+    //         const link = document.createElement('a');
+    //         link.href = savedImage;  // savedImage는 base64 이미지 데이터
+    //         link.download = 'Cheese_naecut.jpg';  // 다운로드할 파일 이름
+    //         link.click();  // 다운로드 트리거
+    //     } else {
+    //         console.error('저장된 이미지가 없습니다!');
+    //     }
+    // };
+
     return (
         <Sel.SelectionPage>
             <Sel.Left_box>
@@ -216,17 +220,8 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                         ))}
                     </div>
                     <S.RightRowBox>
-
-                        <button
-                            onClick={handleDownloadClick}
-                            style={{ margin: '0 70px', padding: '0' }}>
-                            사진 다운로드하기
-                        </button>
-
-
                         <button
                             onClick={handlePrintClick}
-                            
                             disabled={!readyToPrint}
                             style={{ margin: '0 70px', padding: '0' }}
                         >

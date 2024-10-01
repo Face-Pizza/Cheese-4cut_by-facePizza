@@ -9,7 +9,7 @@ export const PrintPage = styled.div`
     height: 100vh;
 
     h1{
-        margin: 130px 0 10px 0;
+        margin: 100px 0 10px 0;
         font-size: 55px;
     }
 

@@ -34,9 +34,9 @@ export const post4Cut = async (savedImage) => {
     });
 
 
+    const { id } = response.data;
 
-    console.log('성공!', response);
-    return response.data;
+    console.log('성공! 생성된 ID:', id);
   } catch (error) {
     console.log('에러 발생', error);
     throw error;
