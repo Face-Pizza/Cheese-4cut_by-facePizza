@@ -11,6 +11,7 @@ import LoadingPage from './LoadingPage';
 
 
 const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
+    const [modalVisible, setModalVisible] = useState(true);
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
     const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
     const [currentEmotion, setCurrentEmotion] = useState(null);
@@ -120,7 +121,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
         setTimeout(() => setFlash(false), 200); // 0.2초 후 플래시 효과 해제
         handlePhotoTaken(photo);
 
-        setLastCapturedPhoto(photo); // 방금 찍힌 사진을 상태에 저장하여 보여줌 //그냥 캡쳐포토 뒤에서 보여주는것도 방법일듯
+        setLastCapturedPhoto(photo); // 방금 찍힌 사진을 상태에 저장하여 보여줌
         setIsDetecting(false); // 감정 인식 중지
 
         setTimeout(() => {
@@ -139,7 +140,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
 
     return (
         <Sho.ShootPage2>
-            <Modal/>
+            <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} />
             <Sho.CurrentH1>{translatedEmotion}</Sho.CurrentH1>
             <S.CenterRowBox style={{ gap: '50px', margin: '0' }}>
                 <Sho.LeftDatabox >
@@ -183,6 +184,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
                 timer={timer}
                 setTimer={setTimer}
                 capturePhoto={capturePhoto}
+                modalVisible = {modalVisible}
             />
         </Sho.ShootPage2>
     );

@@ -26,7 +26,7 @@ export const ShootPage = styled.div`
     flex-direction: column;
     align-items: center;
 
-    h1{
+    #targetEx{
       display: flex;
       justify-content: center;
       align-items: center;
