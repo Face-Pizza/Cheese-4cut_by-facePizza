@@ -6,20 +6,23 @@ import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
 import Frame1 from '../assets/Frame/A_1.svg';
-import { HandlePrint } from '../commponents/select/HandlePrint';
+import { HandlePrint } from '../hooks/HandlePrint';
+import { HandlePrint0 } from '../commponents/select/HandlePrint0';
 import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
 
-const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
+const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPrint, quantity }) => {
     const navigate = useNavigate();
     const [selectedPhotos, setSelectedPhotos] = useState([null, null, null, null]);
     const [readyToPrint, setReadyToPrint] = useState(false);
     const [frameSrc, setFrameSrc] = useState(Frame1);
     const [selectedFrame, setSelectedFrame] = useState('Frame1');
-    const canvasRef = useRef(null); 
+    const canvasRef = useRef(null);
     const frameRef = useRef(null);
     const [qrCode, setQRCode] = useState('');
+    const [qrCodeChecked, setQRCodeChecked] = useState(false);
 
-    const handleQRCodeChange = (newQRCode) => {
+    const handleQRCodeChange = (checked, newQRCode) => {
+        setQRCodeChecked(checked);
         setQRCode(newQRCode);
     };
 
@@ -82,7 +85,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
 
                         const AdjustmentRatio = photoHeight / img.height; //비율을 곱해서 들어감(347)
 
-                        const sx = ((640 - photoWidth / AdjustmentRatio) / 2);
+                        const sx = ((640 - photoWidth / AdjustmentRatio) / 2); //640 - 1280
                         const sWidth = photoWidth / AdjustmentRatio;
 
 
@@ -124,10 +127,10 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
 
     }, [frameSrc, selectedPhotos]); // selectedPhotos와 frameSrc가 변경될 때마다 실행
 
-    const handlePrintClick = async () => {
-        // HandlePrint 함수 호출 시 navigate 전달
-        await HandlePrint(savedImage, navigate);
-    
+    const handlePrintClick = async () => {// HandlePrint 함수 호출 시 navigate 전달
+        console.log('QR 코드 체크 여부:', qrCodeChecked); 
+        await HandlePrint(savedImage, navigate, qrCodeChecked, setImgForPrint, quantity); 
+
     };
 
     // const handleDownloadClick = () => {
@@ -140,7 +143,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
     //         console.error('저장된 이미지가 없습니다!');
     //     }
     // };
-    
+
     return (
         <Sel.SelectionPage>
             <Sel.Left_box>
@@ -217,8 +220,8 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage }) => {
                     </div>
                     <S.RightRowBox>
                         <button
-                            onClick={handlePrintClick}                       
-                            disabled={!readyToPrint}
+                            onClick={handlePrintClick}
+                            // disabled={!readyToPrint}
                             style={{ margin: '0 70px', padding: '0' }}
                         >
                             <h3>프린트하기 &gt;</h3>

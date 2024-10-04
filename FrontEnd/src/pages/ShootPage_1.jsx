@@ -9,9 +9,12 @@ import hap from '../assets/charcter/s_happy.png'
 import sad from '../assets/charcter/s_sad.png'
 import ang from '../assets/charcter/s_angry.png'
 import sup from '../assets/charcter/s_surprised.png'
+import Modal from '../commponents/shoot/Modal';
+
 
 
 const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
+  const [modalVisible, setModalVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
@@ -27,7 +30,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
   const emotionsSequence = ['행복', '슬픔', '분노', '놀람'];
   const currentTargetEmotion = emotionsSequence[Math.floor(capturedPhotos.length / 2)];
 
-  const TipSequence = [ '입을 크게 벌리고 웃어보아요!',  '눈썹과 입꼬리를 내려요', '미간을 좁히고 입을 네모로!', '눈썹을 올리고 입을 벌려요']
+  const TipSequence = ['입을 크게 벌리고 웃어보아요!', '눈썹과 입꼬리를 내려요', '미간을 좁히고 입을 네모로!', '눈썹을 올리고 입을 벌려요']
   const currenTipSequence = TipSequence[Math.floor(capturedPhotos.length / 2)];
 
   const chracterseq = [hap, sad, ang, sup]
@@ -142,7 +145,8 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
 
   return (
     <Sho.ShootPage>
-      <h1>{currentTargetEmotion} 표정을 지어주세요!</h1>
+      <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      <h1 id='targetEx'>'{currentTargetEmotion}' 표정을 지어주세요!</h1>
       <S.CenterRowBox style={{ gap: '50px' }}>
         <Sho.LeftDatabox >
           <h3 id='sec'>{timer}s</h3>
@@ -178,13 +182,15 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
           <h3 id='tip'>{currentTargetEmotion} Tip : {currenTipSequence}</h3>
         </Sho.RightDatabox>
       </S.CenterRowBox>
-      
+
       <EmotionCaptureHandler
         translatedEmotion={translatedEmotion || '인식되지 않음'}
         targetEmotion={currentTargetEmotion}
         timer={timer}
         setTimer={setTimer}
         capturePhoto={capturePhoto}
+        modalVisible={modalVisible} 
+        setModalVisible={setModalVisible}
       />
     </Sho.ShootPage>
   );

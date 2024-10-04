@@ -41,7 +41,7 @@ const PaymentPage = ({ nextURL, setQuantity, quantity }) => {
             </P.ContextBox>
             <P.Total_Amount_Box>
                 <h3>총 금액</h3>
-                <h1>0 원</h1>
+                <h1>{amount} 원</h1>
             </P.Total_Amount_Box>
 
             <P.Footer>

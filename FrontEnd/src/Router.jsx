@@ -9,7 +9,7 @@ import PrintPage from './pages/PrintPage';
 import LoadingPage from './pages/LoadingPage';
 import PaymentPage from './pages/PaymentPage';
 
-const AppRouter = ({ nextURL, setNextURL, quantity, setQuantity, setCapturedPhotos, capturedPhotos, savedImage, setSavedImage}) => {
+const AppRouter = ({ nextURL, setNextURL, quantity, setQuantity, setCapturedPhotos, capturedPhotos, savedImage, setSavedImage, imgForPrint, setImgForPrint}) => {
     return (
         <Routes>
             <Route path='/' element={<Home setNextURL={setNextURL} nextURL={nextURL}/>} />
@@ -17,8 +17,8 @@ const AppRouter = ({ nextURL, setNextURL, quantity, setQuantity, setCapturedPhot
             <Route path='/shoot_1' element={ <ShootPage_1 setCapturedPhotos={setCapturedPhotos} capturedPhotos={capturedPhotos}/>} />
             <Route path='/shoot_2' element={ <ShootPage_2 setCapturedPhotos={setCapturedPhotos} capturedPhotos={capturedPhotos}/>} />
             <Route path='/loading' element={ <LoadingPage/> } />
-            <Route path='/select' element= { <SelectionPage capturedPhotos={capturedPhotos} setSavedImage={setSavedImage} savedImage={savedImage} /> } />
-            <Route path='/print' element= { <PrintPage setCapturedPhotos={setCapturedPhotos} savedImage={savedImage}/> } />
+            <Route path='/select' element= { <SelectionPage capturedPhotos={capturedPhotos} setSavedImage={setSavedImage} savedImage={savedImage} setImgForPrint={setImgForPrint} quantity={quantity}/> } />
+            <Route path='/print' element= { <PrintPage setCapturedPhotos={setCapturedPhotos} imgForPrint={imgForPrint} /> } />
         </Routes>
     )
 };

@@ -33,12 +33,10 @@ export const post4Cut = async (savedImage) => {
       }
     });
 
-
-
-    console.log('성공!', response);
+    console.log('성공! 생성된 response:', response); // 여기에 ID 확인
     return response.data;
   } catch (error) {
-    console.log('에러 발생', error);
+    console.log('post4Cut 에러 발생', error);
     throw error;
   }
 };

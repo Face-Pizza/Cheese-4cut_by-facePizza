@@ -5,15 +5,17 @@ import * as S from '../styles/commonStyle';
 import * as Sho from '../styles/shootStyle';
 import CurrentFaceEx from '../hooks/CurrentFaceEx';
 import shoot2_illust from '../assets/shoot2_illust.png'
+import Modal from '../commponents/shoot/Modal';
 import LoadingPage from './LoadingPage';
 
 
 
 const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
+    const [modalVisible, setModalVisible] = useState(true);
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
     const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
     const [currentEmotion, setCurrentEmotion] = useState(null);
-    const [timer, setTimer] = useState(2); // 타이머 상태 (10초부터 시작) //테스트 1초
+    const [timer, setTimer] = useState(999); // 타이머 상태 (10초부터 시작) //테스트 1초
     const videoRef = useRef(null);
     const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
     const navigate = useNavigate();
@@ -65,7 +67,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
             setCurrentEmotion(detectedEmotion); // 감정 결과를 상태에 저장
         };
 
-        const interval = setInterval(detectEmotionFromVideo, 250); // 0.25초마다 감정 인식 수행
+        const interval = setInterval(detectEmotionFromVideo, 200); // 0.2초마다 감정 인식 수행
 
         return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
     }, [detectEmotion, isDetecting]); // 감정 인식 훅을 의존성으로 설정
@@ -119,7 +121,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
         setTimeout(() => setFlash(false), 200); // 0.2초 후 플래시 효과 해제
         handlePhotoTaken(photo);
 
-        setLastCapturedPhoto(photo); // 방금 찍힌 사진을 상태에 저장하여 보여줌 //그냥 캡쳐포토 뒤에서 보여주는것도 방법일듯
+        setLastCapturedPhoto(photo); // 방금 찍힌 사진을 상태에 저장하여 보여줌
         setIsDetecting(false); // 감정 인식 중지
 
         setTimeout(() => {
@@ -138,6 +140,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
 
     return (
         <Sho.ShootPage2>
+            <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} />
             <Sho.CurrentH1>{translatedEmotion}</Sho.CurrentH1>
             <S.CenterRowBox style={{ gap: '50px', margin: '0' }}>
                 <Sho.LeftDatabox >
@@ -181,6 +184,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
                 timer={timer}
                 setTimer={setTimer}
                 capturePhoto={capturePhoto}
+                modalVisible = {modalVisible}
             />
         </Sho.ShootPage2>
     );
