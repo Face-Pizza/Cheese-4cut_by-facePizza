@@ -7,6 +7,7 @@ import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
 import Frame1 from '../assets/Frame/A_1.svg';
 import { HandlePrint } from '../hooks/HandlePrint';
+import { HandlePrint0 } from '../commponents/select/HandlePrint0';
 import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
 
 const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPrint, quantity }) => {
@@ -18,8 +19,10 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
     const canvasRef = useRef(null);
     const frameRef = useRef(null);
     const [qrCode, setQRCode] = useState('');
+    const [qrCodeChecked, setQRCodeChecked] = useState(false);
 
-    const handleQRCodeChange = (newQRCode) => {
+    const handleQRCodeChange = (checked, newQRCode) => {
+        setQRCodeChecked(checked);
         setQRCode(newQRCode);
     };
 
@@ -124,13 +127,9 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
 
     }, [frameSrc, selectedPhotos]); // selectedPhotos와 frameSrc가 변경될 때마다 실행
 
-    const handlePrintClick = async () => {
-        // HandlePrint 함수 호출 시 navigate 전달
-        if (typeof setImgForPrint !== 'function') {
-            console.error('setImgForPrint는 함수가 아닙니다:', setImgForPrint);
-            return;  // setImgForPrint가 함수가 아닐 경우 함수를 종료합니다.
-        }
-        await HandlePrint(savedImage, navigate, setImgForPrint, quantity);
+    const handlePrintClick = async () => {// HandlePrint 함수 호출 시 navigate 전달
+        console.log('QR 코드 체크 여부:', qrCodeChecked); 
+        await HandlePrint(savedImage, navigate, qrCodeChecked, setImgForPrint, quantity); 
 
     };
 
@@ -222,7 +221,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
                     <S.RightRowBox>
                         <button
                             onClick={handlePrintClick}
-                            disabled={!readyToPrint}
+                            // disabled={!readyToPrint}
                             style={{ margin: '0 70px', padding: '0' }}
                         >
                             <h3>프린트하기 &gt;</h3>

@@ -4,6 +4,7 @@ import { PostPrint } from '../api/postPrint';
 
 // 새로운 이미지 생성 함수
 const addQRCodeToImage = (savedImage, qrCode) => {
+    console.log("QR 코드 값:", qrCode);
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.crossOrigin = "Anonymous"; // CORS 속성 추가
@@ -62,6 +63,7 @@ export const HandlePrint = async (savedImage, navigate, qrCodeChecked, setImgFor
         const latestData = await getLatestData(); // 최신 QR 코드 데이터 가져옴
         let imgForPrint;
 
+        console.log('QR출력여부', qrCodeChecked)
         if (latestData && qrCodeChecked) {
             // QR 코드가 체크되었을 때만 이미지에 QR 추가
             console.log('최신 QR 코드:', latestData.qr_code); 
@@ -76,7 +78,7 @@ export const HandlePrint = async (savedImage, navigate, qrCodeChecked, setImgFor
         navigate('/print');
 
         // 화면 전환 후 이미지 전송 작업을 비동기로 처리
-        PostPrint(imgForPrint, quantity);
+        // PostPrint(imgForPrint, quantity);
     } catch (error) {
         console.error('에러가 발생:', error);
     }

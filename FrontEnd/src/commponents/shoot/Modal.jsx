@@ -4,7 +4,7 @@ import * as M from '../../styles/modalStyle';
 
 const Modal = ({ modalVisible, setModalVisible }) => {
     const location = useLocation()
-    const [timer, setTimer] = useState(999);
+    const [timer, setTimer] = useState(4);
     const [text, setText] = useState({ sub: '', description: '' }); // 
 
     useEffect(() => {

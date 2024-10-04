@@ -27,7 +27,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
   const [lastCapturedPhoto, setLastCapturedPhoto] = useState(null); //마지막 촬영된 사진 보여주기
 
   // 감정 순서를 정의하는 배열 & 현재 목표 감정
-  const emotionsSequence = ['\'행복\'', '\'슬픔\'', '\'분노\'', '\'놀람\''];
+  const emotionsSequence = ['행복', '슬픔', '분노', '놀람'];
   const currentTargetEmotion = emotionsSequence[Math.floor(capturedPhotos.length / 2)];
 
   const TipSequence = ['입을 크게 벌리고 웃어보아요!', '눈썹과 입꼬리를 내려요', '미간을 좁히고 입을 네모로!', '눈썹을 올리고 입을 벌려요']
@@ -146,7 +146,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
   return (
     <Sho.ShootPage>
       <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} />
-      <h1 id='targetEx'>{currentTargetEmotion} 표정을 지어주세요!</h1>
+      <h1 id='targetEx'>'{currentTargetEmotion}' 표정을 지어주세요!</h1>
       <S.CenterRowBox style={{ gap: '50px' }}>
         <Sho.LeftDatabox >
           <h3 id='sec'>{timer}s</h3>
