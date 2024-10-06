@@ -5,6 +5,7 @@ import Cartoon1 from '../assets/cartoon/Catoon_1.png';
 import Cartoon2 from '../assets/cartoon/Catoon_2.png';
 import Cartoon3 from '../assets/cartoon/Catoon_3.png';
 import Cartoon4 from '../assets/cartoon/Catoon_4.png';
+import { getPrintStatus } from '../api/getPrint';
 
 const PrintPage = ({setCapturedPhotos, imgForPrint}) => {
   const navigate = useNavigate();
@@ -40,6 +41,15 @@ const PrintPage = ({setCapturedPhotos, imgForPrint}) => {
 
     return () => clearInterval(changeCartoon); // 컴포넌트 언마운트 시 타이머 정리
   }, [cartoons.length]);
+
+  // useEffect(() => {
+  //   // 프린트 상태 확인 (주기적으로 호출 가능)
+  //   const interval = setInterval(() => {
+  //     getPrintStatus(); // 프린트 상태 확인 요청
+  //   }, 5000); // 5초마다 상태 확인
+
+  //   return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 정리
+  // }, []);
 
   return (
     <Pr.PrintPage>
