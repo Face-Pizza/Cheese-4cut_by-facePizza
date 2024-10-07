@@ -25,9 +25,9 @@ const addQRCodeToImage = (savedImage, qrCode) => {
                 qrImg.src = qrCode;
 
                 qrImg.onload = () => {
-                    const qrSize = 100;  // QR 코드 크기
-                    const x = canvas.width - qrSize - 10;  // 오른쪽 하단 위치
-                    const y = canvas.height - qrSize - 10;
+                    const qrSize = 45;  // QR 코드 크기
+                    const x = 20;  // 왼쪽 하단 위치
+                    const y = canvas.height - qrSize - 26;
 
                     ctx.drawImage(qrImg, x, y, qrSize, qrSize);
                     const finalImage = canvas.toDataURL();
@@ -78,7 +78,7 @@ export const HandlePrint = async (savedImage, navigate, qrCodeChecked, setImgFor
         navigate('/print');
 
         // 화면 전환 후 이미지 전송 작업을 비동기로 처리
-        // PostPrint(imgForPrint, quantity);
+        PostPrint(imgForPrint, quantity);
     } catch (error) {
         console.error('에러가 발생:', error);
     }

@@ -8,7 +8,7 @@ import Cartoon4 from '../assets/cartoon/Catoon_4.png';
 
 const PrintPage = ({setCapturedPhotos, imgForPrint}) => {
   const navigate = useNavigate();
-  const [timer, setTimer] = useState(30); // 타이머 상태 (20초 후 이동)
+  const [timer, setTimer] = useState(300); // 타이머 상태 (20초 후 이동)
   const cartoons = [Cartoon1, Cartoon2, Cartoon3, Cartoon4]; // 카툰 이미지 배열
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // 현재 카툰 인덱스
   

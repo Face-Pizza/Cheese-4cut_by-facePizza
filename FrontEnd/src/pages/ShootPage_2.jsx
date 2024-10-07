@@ -15,7 +15,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
     const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
     const [currentEmotion, setCurrentEmotion] = useState(null);
-    const [timer, setTimer] = useState(999); // 타이머 상태 (10초부터 시작) //테스트 1초
+    const [timer, setTimer] = useState(8); // 타이머 상태 (10초부터 시작) //테스트 1초
     const videoRef = useRef(null);
     const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
     const navigate = useNavigate();
@@ -107,7 +107,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
         // 텍스트를 캔버스에 추가 (비디오 위에 글씨)
         context.resetTransform(); // 좌우 반전을 원상복구
         context.font = "50px omyu pretty"; // 원하는 폰트 설정
-        context.fillStyle = "yellow"; // 글자 색상
+        context.fillStyle = "black"; // 글자 색상
         context.textAlign = "center";
         context.fillText(translatedEmotion, canvas.width / 2, 69);
 

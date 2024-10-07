@@ -5,9 +5,9 @@ import FrameSelector from '../commponents/FrameSelector';
 import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
 import * as Sel from '../styles/selectStyle';
-import Frame1 from '../assets/Frame/A_1.svg';
+import Frame1 from '../assets/Frame/D_1.svg';
 import { HandlePrint } from '../hooks/HandlePrint';
-import { HandlePrint0 } from '../commponents/select/HandlePrint0';
+// import { HandlePrint0 } from '../commponents/select/HandlePrintX';
 import QRCodeDisplay from '../commponents/select/QRcodeDisplay';
 
 const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPrint, quantity }) => {
@@ -89,7 +89,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
                         const sWidth = photoWidth / AdjustmentRatio;
 
 
-                        // 이미지를 그리드에 맞춰 그리기
+                        // 이미지를 그리드에 맞춰 그리기s
 
                         ctx.drawImage(
                             img,
@@ -162,8 +162,8 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
                         )}
 
                         {Array.from({ length: 4 }).map((_, index) => {
-                            const x = 24 + (12 + 195) * (index % 2); // 사진의 x 위치
-                            const y = 24 + Math.floor(index / 2) * (12 + 260); // 사진의 y 위치
+                            const x = 18 + (12 + 192) * (index % 2); // 사진의 x 위치
+                            const y = 47.5 + (18 + 256) * Math.floor(index / 2); // 사진의 y 위치
                             return (
                                 <Sel.PhotoToggleBtn
                                     key={index}

@@ -128,6 +128,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
 
     setLastCapturedPhoto(photo); // 방금 찍힌 사진을 상태에 저장하여 보여줌 //그냥 캡쳐포토 뒤에서 보여주는것도 방법일듯
     setIsDetecting(false); // 감정 인식 중지
+    
 
     setTimeout(() => {
       setIsDetecting(true); // 2초 후 감정 인식 재개
