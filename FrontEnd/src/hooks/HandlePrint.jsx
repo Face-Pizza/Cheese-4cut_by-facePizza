@@ -78,8 +78,10 @@ export const HandlePrint = async (savedImage, navigate, setImgForPrint, quantity
         // 사용자 화면을 전환
         navigate('/print');
 
+        const halfquantity = quantity/2
+        console.log(halfquantity)
         // 화면 전환 후 이미지 전송 작업을 비동기로 처리
-        PostPrint(imgForPrint, quantity);
+        PostPrint(imgForPrint, halfquantity);
     } catch (error) {
         console.error('에러가 발생:', error);
     }

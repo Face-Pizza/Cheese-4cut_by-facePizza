@@ -87,7 +87,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
 
                         const AdjustmentRatio = photoHeight / img.height; //비율을 곱해서 들어감(347)
 
-                        const sx = ((640 - photoWidth / AdjustmentRatio) / 2); //640 - 1280
+                        const sx = ((1280 - photoWidth / AdjustmentRatio) / 2); //640 - 1280
                         const sWidth = photoWidth / AdjustmentRatio;
 
 

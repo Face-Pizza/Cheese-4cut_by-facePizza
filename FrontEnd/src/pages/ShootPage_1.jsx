@@ -195,7 +195,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
 
         <canvas ref={canvasRef} style={{ display: "none" }} />
         <Sho.FlashOverlay flash={flash} />
-        <Sho.RightDatabox >
+        <Sho.RightDatabox style={{gap: '0px', marginBottom: '60px'}}>
           <Sho.CharactImg src={currentCharacterseq} />
           <h3 id='tip'>{currentTargetEmotion} Tip : {currenTipSequence}</h3>
         </Sho.RightDatabox>

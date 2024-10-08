@@ -86,6 +86,7 @@ export const RightDatabox = styled.div`
 display: flex;
 flex-direction: column;
 align-items: flex-start;
+justify-content: center;
 gap: 25px;
 width: 500px;
 
@@ -94,14 +95,13 @@ width: 500px;
   font-family: "omyu pretty";
   font-size: 33px;
 
-  /* width: 100%; */
   margin: 0;
 
  }
 `
 
 export const CharactImg = styled.img`
-  width: 188.181px;
+  width: 300px;
 `
 
 export const CurrentH1 = styled.h1`
