@@ -78,10 +78,10 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
                         // console.log('가로(너비):', img.width);
                         // console.log('세로(높이):', img.height);
 
-                        const photoWidth = 210;  // EachPhoto의 너비
-                        const photoHeight = 260; // EachPhoto의 높이
-                        const x = 10 + (7.2 + photoWidth) * (index % 2);// x 위치
-                        const y = 30 + Math.floor(index / 2) * (5 + photoHeight); // y 위치
+                        const photoWidth = 196;  // EachPhoto의 너비
+                        const photoHeight = 255; // EachPhoto의 높이
+                        const x = 20 + (18 + photoWidth) * (index % 2);// x 위치
+                        const y = 44 + Math.floor(index / 2) * (10.5 + photoHeight); // y 위치
 
                         const AdjustmentRatio = photoHeight / img.height; //비율을 곱해서 들어감(347)
 
@@ -133,17 +133,6 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
 
     };
 
-    // const handleDownloadClick = () => {
-    //     if (savedImage) {
-    //         const link = document.createElement('a');
-    //         link.href = savedImage;  // savedImage는 base64 이미지 데이터
-    //         link.download = 'Cheese_naecut.jpg';  // 다운로드할 파일 이름
-    //         link.click();  // 다운로드 트리거
-    //     } else {
-    //         console.error('저장된 이미지가 없습니다!');
-    //     }
-    // };
-
     return (
         <Sel.SelectionPage>
             <Sel.Left_box>
@@ -162,8 +151,8 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
                         )}
 
                         {Array.from({ length: 4 }).map((_, index) => {
-                            const x = 18 + (12 + 192) * (index % 2); // 사진의 x 위치
-                            const y = 47.5 + (18 + 256) * Math.floor(index / 2); // 사진의 y 위치
+                            const x = 18 + (18 + 192) * (index % 2); // 사진의 x 위치
+                            const y = 44 + (11 + 256) * Math.floor(index / 2); // 사진의 y 위치
                             return (
                                 <Sel.PhotoToggleBtn
                                     key={index}
@@ -211,7 +200,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
                                     alt={`snap-${index}`}
                                     style={{
                                         width: '101%',
-                                        height: '101%',
+                                        height: '100%',
                                         objectFit: 'cover',
                                     }}
                                 />

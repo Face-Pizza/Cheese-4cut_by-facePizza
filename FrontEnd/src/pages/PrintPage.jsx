@@ -8,7 +8,7 @@ import Cartoon4 from '../assets/cartoon/Catoon_4.png';
 
 const PrintPage = ({setCapturedPhotos, imgForPrint}) => {
   const navigate = useNavigate();
-  const [timer, setTimer] = useState(300); // 타이머 상태 (20초 후 이동)
+  const [timer, setTimer] = useState(30); // 타이머 상태 (20초 후 이동)
   const cartoons = [Cartoon1, Cartoon2, Cartoon3, Cartoon4]; // 카툰 이미지 배열
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // 현재 카툰 인덱스
   
@@ -45,11 +45,7 @@ const PrintPage = ({setCapturedPhotos, imgForPrint}) => {
     <Pr.PrintPage>
       <h1>프린트 중입니다...</h1>
       <h3>{timer}초 후에 메인 페이지로 이동합니다.</h3>
-      {imgForPrint ? (
-                <img src={imgForPrint} alt="To be printed" />
-            ) : (
-                <p>이미지가 없습니다.</p>
-            )}
+     
       <Pr.Cartoon src={cartoons[currentImageIndex]} />
     </Pr.PrintPage>
   );

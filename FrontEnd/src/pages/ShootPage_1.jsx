@@ -18,7 +18,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
-  const [timer, setTimer] = useState(999); // 타이머 상태 (10초부터 시작) //테스트 1초
+  const [timer, setTimer] = useState(10); // 타이머 상태 (10초부터 시작) //테스트 1초
   const videoRef = useRef(null);
   const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
   const navigate = useNavigate();
@@ -158,8 +158,8 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
           src={lastCapturedPhoto}
           alt="lastCaptured"
           style={{
-            width: 775.5,
-            height: 945,
+            width: 670,
+            height: 893,
             objectFit: "cover",
             // transform: 'rotateY(180deg)'
           }}
@@ -169,7 +169,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
           autoPlay
           onLoadedData={handleLoadingPage}
           style={{
-            width: 670,
+            width: 672,
             height: 893,
             objectFit: "cover",
             transform: 'rotateY(180deg)'
