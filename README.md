@@ -17,7 +17,7 @@
 2. 프린트 매수 선택 `PaymentPage.jsx`
 - 프린트 할 매수를 두 장 단위로 선택<br/>
 
-3. 사진 촬영
+3. 사진 촬영<br/>
 3.1. 표정 챌린지 `ShootPage_1.jsx`
 - 우리의 메인 기능인 표정 인식 기능이 들어 있는 페이지
 - `face-api.js`를 사용해 현재 표정을 인식 (`useEmotionDetection.js`에서 api 관리)
