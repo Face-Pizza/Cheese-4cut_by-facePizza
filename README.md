@@ -6,7 +6,7 @@
 - Django (웹서버)
 - Pillow (이미지 처리)
 - qrcode (QR코드 생성)
-- pywin32 (프린터 제어)
+- pywin32 (프린터 제어) (단, window 환경에서만 실행됨)
 
 ## 코드 흐름
 ### 클라이언트
@@ -17,11 +17,17 @@
 2. 프린트 매수 선택 `PaymentPage.jsx`
 - 프린트 할 매수를 두 장 단위로 선택<br/>
 
-3. 사진 촬영 `ShootPage.jsx`
+3. 사진 촬영<br/>
+3.1. 표정 챌린지 `ShootPage_1.jsx`
 - 우리의 메인 기능인 표정 인식 기능이 들어 있는 페이지
 - `face-api.js`를 사용해 현재 표정을 인식 (`useEmotionDetection.js`에서 api 관리)
     - 0.25초 간격으로 표정 인식
-    - 인식된 감정들 중 max 값을 찾아 `maxExpression`과 확률 `confidence`를 반환<br/>
+    - 인식된 감정들 중 max 값을 찾아 `maxExpression`과 확률 `confidence`를 반환
+    
+3.2. 지내표 (지금 내 표정은?) `ShootPage_2.jsx`
+- 현재 자신의 표정을 인식해 보여주는 서비스
+- 여러명의 표정이 인식될 경우, 그 중 가장 maxValue 값이 큰 표정을 출력함
+- 즉, 여러 표정 중 가장 크게 지은 표정이 인식<br/>
 
 4. 사진 선택 `SelectionPage.jsx`
 - 8컷의 사진 중 4장 선택
@@ -39,7 +45,11 @@
 2. QRcode 생성
 - db에 photo가 저장되면서 동시에 qrcode 생성 `views.py`
     - qrcode 생성 코드는 `utils.py`로 분리해서 관리함
-- 로컬 react에서 사진을 찍고, django 서버로 전송, django 서버는 네컷 사진을 다운받을 수 있는 배포된 react랑 다시 연결<br/>
+- 로컬 react에서 사진을 찍고, django 서버로 전송, django 서버는 네컷 사진을 다운받을 수 있는 배포된 react랑 다시 연결
+- url의 id 파라미터는 인코딩 한 값으로 저장
+    - 처음에는 `urllib.parse`의 `quote` 함수를 사용하려고 했으나, id가 숫자밖에 없어 다른 문자로 바뀌지 않음
+    - 그래서 base64 암호화 방식을 택함.
+    - base64 인코딩은 url에서 기존의 존재하는 특수기호도 포함돼서 인코딩 되므로 사전에 그런 문자를 제거해줘야 함. `urlsafe_b64encode` 사용<br/>
 
 3. 네컷 사진에 qrcode 출력
 - react에서 qr_code를 get 해서 불러옴
@@ -70,15 +80,22 @@ npm install styled-components
 python -m venv venv
 source venv/Scripts/activate
 ```
-2. 필요 모듈 설치
+2. 필요 모듈 설치<br/>
+2.1. 모듈 install
 ```commandline
 pip install django
 pip install djangorestframework
 pip install Pillow
 pip install qrcode
 pip install django-cors-headers
+pip install django-environ
 pip install pywin32
 ```
+2.2. 의존성 모듈 설치
+```commandline
+pip install -r requirements.txt
+```
+
 3. 실행
 ```commandline
 python manage.py makemigrations

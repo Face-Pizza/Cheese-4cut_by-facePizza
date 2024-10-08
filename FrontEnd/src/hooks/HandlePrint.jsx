@@ -49,7 +49,7 @@ const addQRCodeToImage = (savedImage, qrCode) => {
 };
 
 
-export const HandlePrint = async (savedImage, navigate, qrCodeChecked, setImgForPrint, quantity) => {
+export const HandlePrint = async (savedImage, navigate, setImgForPrint, quantity) => {
     if (!savedImage) {
         console.error('업로드할 이미지가 없음');
         return;
@@ -63,15 +63,16 @@ export const HandlePrint = async (savedImage, navigate, qrCodeChecked, setImgFor
         const latestData = await getLatestData(); // 최신 QR 코드 데이터 가져옴
         let imgForPrint;
 
-        console.log('QR출력여부', qrCodeChecked)
+        /*console.log('QR출력여부', qrCodeChecked)
         if (latestData && qrCodeChecked) {
             // QR 코드가 체크되었을 때만 이미지에 QR 추가
             console.log('최신 QR 코드:', latestData.qr_code); 
             imgForPrint = await addQRCodeToImage(savedImage, latestData.qr_code);
         } else {
             imgForPrint = savedImage; // QR 코드가 없을 경우 원본 이미지 사용
-        }
+        }*/
 
+        imgForPrint = await addQRCodeToImage(savedImage, latestData.qr_code);
         setImgForPrint(imgForPrint);
 
         // 사용자 화면을 전환

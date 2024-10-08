@@ -10,6 +10,7 @@ import sad from '../assets/charcter/s_sad.png'
 import ang from '../assets/charcter/s_angry.png'
 import sup from '../assets/charcter/s_surprised.png'
 import Modal from '../commponents/shoot/Modal';
+import { getLatestData } from '../api/getQRcode';
 
 
 
@@ -28,13 +29,13 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
 
   // 감정 순서를 정의하는 배열 & 현재 목표 감정
   const emotionsSequence = ['행복', '슬픔', '분노', '놀람'];
-  const currentTargetEmotion = emotionsSequence[Math.floor(capturedPhotos.length / 2)];
+  const currentTargetEmotion = emotionsSequence[Math.floor(capturedPhotos.length % 4)];
 
   const TipSequence = ['입을 크게 벌리고 웃어보아요!', '눈썹과 입꼬리를 내려요', '미간을 좁히고 입을 네모로!', '눈썹을 올리고 입을 벌려요']
-  const currenTipSequence = TipSequence[Math.floor(capturedPhotos.length / 2)];
+  const currenTipSequence = TipSequence[Math.floor(capturedPhotos.length % 4)];
 
   const chracterseq = [hap, sad, ang, sup]
-  const currentCharacterseq = chracterseq[Math.floor(capturedPhotos.length / 2)];
+  const currentCharacterseq = chracterseq[Math.floor(capturedPhotos.length % 4)];
   const TranslatedCurrentEmotion = {
     happy: '행복',
     sad: '슬픔',
@@ -137,9 +138,25 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
     }, 2000);
   };
 
+  // 8장의 사진이 찍혔을 때 QR 코드를 불러오고, /select 페이지로 이동
   useEffect(() => {
+    const fetchQRCodeAndNavigate = async () => {
+      try {
+        const latestData = await getLatestData(); // API 호출로 데이터 가져오기
+        if (latestData && latestData.qr_code) {
+          navigate('/select', { state: { qrCode: latestData.qr_code } }); // QR 코드와 함께 페이지 이동
+        } else {
+          console.warn('QR 코드가 없습니다.');
+          navigate('/select'); // QR 코드가 없을 경우에도 페이지 이동
+        }
+      } catch (error) {
+        console.error('Failed to fetch the latest data:', error);
+        navigate('/select'); // 에러 발생 시에도 페이지 이동
+      }
+    };
+
     if (capturedPhotos.length === 8) {
-      navigate('/select'); // "/select" 경로로 이동
+      fetchQRCodeAndNavigate(); // QR 코드 불러오고 /select 페이지로 이동
     }
   }, [capturedPhotos.length, navigate]);
 
@@ -178,7 +195,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
 
         <canvas ref={canvasRef} style={{ display: "none" }} />
         <Sho.FlashOverlay flash={flash} />
-        <Sho.RightDatabox >
+        <Sho.RightDatabox style={{gap: '0px', marginBottom: '60px'}}>
           <Sho.CharactImg src={currentCharacterseq} />
           <h3 id='tip'>{currentTargetEmotion} Tip : {currenTipSequence}</h3>
         </Sho.RightDatabox>
