@@ -129,6 +129,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
 
     setLastCapturedPhoto(photo); // 방금 찍힌 사진을 상태에 저장하여 보여줌 //그냥 캡쳐포토 뒤에서 보여주는것도 방법일듯
     setIsDetecting(false); // 감정 인식 중지
+    
 
     setTimeout(() => {
       setIsDetecting(true); // 2초 후 감정 인식 재개
@@ -164,6 +165,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
     <Sho.ShootPage>
       <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} />
       <h1 id='targetEx'>'{currentTargetEmotion}' 표정을 지어주세요!</h1>
+      <h3 id='yourEx'>현재 표정 : {translatedEmotion} </h3>
       <S.CenterRowBox style={{ gap: '50px' }}>
         <Sho.LeftDatabox >
           <h3 id='sec'>{timer}s</h3>
@@ -173,8 +175,8 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
           src={lastCapturedPhoto}
           alt="lastCaptured"
           style={{
-            width: 775.5,
-            height: 945,
+            width: 670,
+            height: 893,
             objectFit: "cover",
             // transform: 'rotateY(180deg)'
           }}
@@ -184,8 +186,8 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
           autoPlay
           onLoadedData={handleLoadingPage}
           style={{
-            width: 775,
-            height: 945,
+            width: 672,
+            height: 893,
             objectFit: "cover",
             transform: 'rotateY(180deg)'
           }}
@@ -194,7 +196,6 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
         <canvas ref={canvasRef} style={{ display: "none" }} />
         <Sho.FlashOverlay flash={flash} />
         <Sho.RightDatabox >
-          <h3 id='yourEx'>현재 표정 : {translatedEmotion} </h3>
           <Sho.CharactImg src={currentCharacterseq} />
           <h3 id='tip'>{currentTargetEmotion} Tip : {currenTipSequence}</h3>
         </Sho.RightDatabox>

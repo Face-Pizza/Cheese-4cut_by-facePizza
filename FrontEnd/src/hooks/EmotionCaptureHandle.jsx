@@ -20,8 +20,8 @@ const EmotionCaptureHandler = ({ translatedEmotion, targetEmotion, timer, setTim
       capturePhoto();
       setTimer(0);
       setTimeout(() => {
-        setTimer(1); // 타이머를 10초로 초기화
-      }, 2000); 
+        setTimer(10); // 타이머를 10초로 초기화
+      }, 2000);
     }
   }, [translatedEmotion, targetEmotion, timer, capturePhoto, setTimer]);
 

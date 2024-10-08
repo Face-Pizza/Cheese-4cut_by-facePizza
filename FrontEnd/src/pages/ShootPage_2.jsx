@@ -108,7 +108,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
         // 텍스트를 캔버스에 추가 (비디오 위에 글씨)
         context.resetTransform(); // 좌우 반전을 원상복구
         context.font = "50px omyu pretty"; // 원하는 폰트 설정
-        context.fillStyle = "yellow"; // 글자 색상
+        context.fillStyle = "black"; // 글자 색상
         context.textAlign = "center";
         context.fillText(translatedEmotion, canvas.width / 2, 69);
 
@@ -158,7 +158,10 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
     return (
         <Sho.ShootPage2>
             <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} />
-            <Sho.CurrentH1>{translatedEmotion}</Sho.CurrentH1>
+            {lastCapturedPhoto ? (''
+            ) : (
+                <Sho.CurrentH1>{translatedEmotion}</Sho.CurrentH1>
+            )}
             <S.CenterRowBox style={{ gap: '50px', margin: '0' }}>
                 <Sho.LeftDatabox >
                     <h3 id='sec'>{timer}s</h3>
@@ -168,8 +171,8 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
                     src={lastCapturedPhoto}
                     alt="lastCaptured"
                     style={{
-                        width: 775.5,
-                        height: 945,
+                        width: '74.25vh',
+                        height: '99vh',
                         objectFit: "cover",
                         // transform: 'rotateY(180deg)'
                     }}
@@ -179,7 +182,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
                     autoPlay
                     onLoadedData={handleLoadingPage}
                     style={{
-                        width: '74.25vh',
+                        width: '75vh',
                         height: '99vh',
                         objectFit: "cover",
                         transform: 'rotateY(180deg)'
@@ -201,7 +204,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
                 timer={timer}
                 setTimer={setTimer}
                 capturePhoto={capturePhoto}
-                modalVisible = {modalVisible}
+                modalVisible={modalVisible}
             />
         </Sho.ShootPage2>
     );

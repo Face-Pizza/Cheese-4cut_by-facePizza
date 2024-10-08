@@ -159,7 +159,14 @@ export const FrameSelectorContainer = styled.div`
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+    background-color: #f4f4f4;
+    padding: 5px;
+
 `;
+export const eachFrame = styled.img`
+  filter: drop-shadow(0px 0px 8px #6e6e6e);
+  background-color: transparent;
+`
 
 export const FrameChoice = styled.div`
     padding: 10px;

@@ -55,11 +55,7 @@ const PrintPage = ({setCapturedPhotos, imgForPrint}) => {
     <Pr.PrintPage>
       <h1>프린트 중입니다...</h1>
       <h3>{timer}초 후에 메인 페이지로 이동합니다.</h3>
-      {imgForPrint ? (
-                <img src={imgForPrint} alt="To be printed" />
-            ) : (
-                <p>이미지가 없습니다.</p>
-            )}
+     
       <Pr.Cartoon src={cartoons[currentImageIndex]} />
     </Pr.PrintPage>
   );

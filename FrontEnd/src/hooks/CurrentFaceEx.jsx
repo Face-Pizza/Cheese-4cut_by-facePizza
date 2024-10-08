@@ -20,8 +20,8 @@ const CurrentFaceEx = ({ translatedEmotion, targetEmotion, timer, setTimer, capt
       capturePhoto();
       setTimer(0);
       setTimeout(() => {
-        setTimer(1); // 타이머를 10초로 초기화
-      }, 2000);  //2초뒤에
+        setTimer(8); // 타이머를 8초로 초기화
+      }, 2000);  //1초뒤에
     }
   }, [translatedEmotion, targetEmotion, timer, capturePhoto, setTimer]);
 

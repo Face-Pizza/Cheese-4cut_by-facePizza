@@ -4,7 +4,7 @@ import * as M from '../../styles/modalStyle';
 
 const Modal = ({ modalVisible, setModalVisible }) => {
     const location = useLocation()
-    const [timer, setTimer] = useState(4);
+    const [timer, setTimer] = useState(3);
     const [text, setText] = useState({ sub: '', description: '' }); // 
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const Modal = ({ modalVisible, setModalVisible }) => {
             case '/shoot_1':
                 return { sub: '목표 표정이 인식되면,', description: '바로 사진이 촬영돼요!' };
             case '/shoot_2':
-                return { sub: '10초가 지나면,', description : '인식된 표정 텍스트와 함께 사진이 찍혀요!' };
+                return { sub: '8초가 지나면,', description : '인식된 표정 텍스트와 함께 사진이 찍혀요!' };
         }
     };
 
