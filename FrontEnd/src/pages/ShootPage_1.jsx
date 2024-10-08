@@ -29,13 +29,13 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
 
   // 감정 순서를 정의하는 배열 & 현재 목표 감정
   const emotionsSequence = ['행복', '슬픔', '분노', '놀람'];
-  const currentTargetEmotion = emotionsSequence[Math.floor(capturedPhotos.length / 2)];
+  const currentTargetEmotion = emotionsSequence[Math.floor(capturedPhotos.length % 4)];
 
   const TipSequence = ['입을 크게 벌리고 웃어보아요!', '눈썹과 입꼬리를 내려요', '미간을 좁히고 입을 네모로!', '눈썹을 올리고 입을 벌려요']
-  const currenTipSequence = TipSequence[Math.floor(capturedPhotos.length / 2)];
+  const currenTipSequence = TipSequence[Math.floor(capturedPhotos.length % 4)];
 
   const chracterseq = [hap, sad, ang, sup]
-  const currentCharacterseq = chracterseq[Math.floor(capturedPhotos.length / 2)];
+  const currentCharacterseq = chracterseq[Math.floor(capturedPhotos.length % 4)];
   const TranslatedCurrentEmotion = {
     happy: '행복',
     sad: '슬픔',
