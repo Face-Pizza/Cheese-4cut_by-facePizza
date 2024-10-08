@@ -18,7 +18,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
   const [currentEmotion, setCurrentEmotion] = useState(null);
-  const [timer, setTimer] = useState(10); // 타이머 상태 (10초부터 시작) //테스트 1초
+  const [timer, setTimer] = useState(999); // 타이머 상태 (10초부터 시작) //테스트 1초
   const videoRef = useRef(null);
   const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
   const navigate = useNavigate();
@@ -148,6 +148,7 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
     <Sho.ShootPage>
       <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} />
       <h1 id='targetEx'>'{currentTargetEmotion}' 표정을 지어주세요!</h1>
+      <h3 id='yourEx'>현재 표정 : {translatedEmotion} </h3>
       <S.CenterRowBox style={{ gap: '50px' }}>
         <Sho.LeftDatabox >
           <h3 id='sec'>{timer}s</h3>
@@ -168,8 +169,8 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
           autoPlay
           onLoadedData={handleLoadingPage}
           style={{
-            width: 775,
-            height: 945,
+            width: 670,
+            height: 893,
             objectFit: "cover",
             transform: 'rotateY(180deg)'
           }}
@@ -178,7 +179,6 @@ const ShootPage_1 = ({ setCapturedPhotos, capturedPhotos }) => {
         <canvas ref={canvasRef} style={{ display: "none" }} />
         <Sho.FlashOverlay flash={flash} />
         <Sho.RightDatabox >
-          <h3 id='yourEx'>현재 표정 : {translatedEmotion} </h3>
           <Sho.CharactImg src={currentCharacterseq} />
           <h3 id='tip'>{currentTargetEmotion} Tip : {currenTipSequence}</h3>
         </Sho.RightDatabox>

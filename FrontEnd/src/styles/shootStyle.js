@@ -35,6 +35,21 @@ export const ShootPage = styled.div`
       width: 542.1px;
       height: 75.4px;
       color: white;
+      margin: 15px 0 10px 0;
+    }
+
+  #yourEx{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+
+    border-radius: 30px;
+    background: #999;
+    width: 542.1px;
+    height: 75.4px;
+    color: white;
+    margin: 0;
     }
   `
 
@@ -73,20 +88,6 @@ flex-direction: column;
 align-items: flex-start;
 gap: 25px;
 width: 500px;
-
-#yourEx{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  background: #E9E9E9;
-  font-size: 35px;
-  width: 225.334px;
-  height: 40px;
-  padding: 18.188px 10.913px 17.661px 10.913px;
-
-  margin: 0;
-    }
 
 #tip{
   color: var(--, #000);
