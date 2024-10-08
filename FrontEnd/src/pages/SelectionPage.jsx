@@ -1,6 +1,6 @@
 //src/pages/SelectPage.jsx
 import React, { useState, useRef, useEffect } from 'react';  // useRef 캔버스 참조 추가
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import FrameSelector from '../commponents/FrameSelector';
 import Logo_Cheese from '../assets/Logo_Cheese.png';
 import * as S from '../styles/commonStyle';
@@ -18,13 +18,15 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
     const [selectedFrame, setSelectedFrame] = useState('Frame1');
     const canvasRef = useRef(null);
     const frameRef = useRef(null);
-    const [qrCode, setQRCode] = useState('');
-    const [qrCodeChecked, setQRCodeChecked] = useState(false);
+    //const [qrCode, setQRCode] = useState('');
+    //const [qrCodeChecked, setQRCodeChecked] = useState(false);
+    const location = useLocation();
+    const qrCode = location.state?.qrCode;
 
-    const handleQRCodeChange = (checked, newQRCode) => {
+    /*const handleQRCodeChange = (checked, newQRCode) => {
         setQRCodeChecked(checked);
         setQRCode(newQRCode);
-    };
+    };*/
 
     const toggleSelectPhoto = (photo) => {
         setSelectedPhotos((prevSelectedPhotos) => {
@@ -128,8 +130,8 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
     }, [frameSrc, selectedPhotos]); // selectedPhotos와 frameSrc가 변경될 때마다 실행
 
     const handlePrintClick = async () => {// HandlePrint 함수 호출 시 navigate 전달
-        console.log('QR 코드 체크 여부:', qrCodeChecked); 
-        await HandlePrint(savedImage, navigate, qrCodeChecked, setImgForPrint, quantity); 
+        //console.log('QR 코드 체크 여부:', qrCodeChecked); 
+        await HandlePrint(savedImage, navigate, setImgForPrint, quantity); 
 
     };
 
@@ -149,7 +151,7 @@ const SelectionPage = ({ capturedPhotos, setSavedImage, savedImage, setImgForPri
             <Sel.Left_box>
                 <Sel.Header>
                     <S.Logo src={Logo_Cheese} alt='LOGO' />
-                    <QRCodeDisplay onQRCodeChange={handleQRCodeChange} />
+                    {/*<QRCodeDisplay onQRCodeChange={handleQRCodeChange} />*/}
                 </Sel.Header>
 
 

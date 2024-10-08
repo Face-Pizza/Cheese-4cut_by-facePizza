@@ -7,6 +7,7 @@ import CurrentFaceEx from '../hooks/CurrentFaceEx';
 import shoot2_illust from '../assets/shoot2_illust.png'
 import Modal from '../commponents/shoot/Modal';
 import LoadingPage from './LoadingPage';
+import { getLatestData } from '../api/getQRcode';
 
 
 
@@ -15,7 +16,7 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
     const [flash, setFlash] = useState(false); // 플래시 효과를 위한 상태
     const [currentEmotion, setCurrentEmotion] = useState(null);
-    const [timer, setTimer] = useState(999); // 타이머 상태 (10초부터 시작) //테스트 1초
+    const [timer, setTimer] = useState(8); // 타이머 상태 (10초부터 시작) //테스트 1초
     const videoRef = useRef(null);
     const canvasRef = useRef(null); // 캔버스를 참조하기 위한 useRef
     const navigate = useNavigate();
@@ -131,11 +132,27 @@ const ShootPage_2 = ({ setCapturedPhotos, capturedPhotos }) => {
         }, 2000);
     };
 
-    useEffect(() => {
-        if (capturedPhotos.length === 8) {
-            navigate('/select'); // "/select" 경로로 이동
+    // 8장의 사진이 찍혔을 때 QR 코드를 불러오고, /select 페이지로 이동
+  useEffect(() => {
+    const fetchQRCodeAndNavigate = async () => {
+      try {
+        const latestData = await getLatestData(); // API 호출로 데이터 가져오기
+        if (latestData && latestData.qr_code) {
+          navigate('/select', { state: { qrCode: latestData.qr_code } }); // QR 코드와 함께 페이지 이동
+        } else {
+          console.warn('QR 코드가 없습니다.');
+          navigate('/select'); // QR 코드가 없을 경우에도 페이지 이동
         }
-    }, [capturedPhotos.length, navigate]);
+      } catch (error) {
+        console.error('Failed to fetch the latest data:', error);
+        navigate('/select'); // 에러 발생 시에도 페이지 이동
+      }
+    };
+
+    if (capturedPhotos.length === 8) {
+      fetchQRCodeAndNavigate(); // QR 코드 불러오고 /select 페이지로 이동
+    }
+  }, [capturedPhotos.length, navigate]);
 
 
     return (
